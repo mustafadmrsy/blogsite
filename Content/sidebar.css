@@ -1,0 +1,321 @@
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100vh;
+    background-color: #fff;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Sidebar Header-Right (Üst) ve Header-Left (Alt) Bölümleri */
+.header-right {
+    padding: 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.header-left {
+    padding: 20px;
+    margin-top: auto; /* Alt kısma sabitlemek için */
+    border-top: 1px solid #f0f0f0;
+}
+
+/* Logo */
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.logo-container img {
+    max-width: 180px;
+    height: auto;
+}
+
+/* Arama Kutusu */
+.search-container {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 40px 10px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.search-input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.search-button {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #777;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.search-button:hover {
+    color: #007bff;
+}
+
+/* Navigasyon Menüsü */
+.nav-container {
+    margin-bottom: 20px;
+}
+
+.nav-menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-item {
+    margin-bottom: 5px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    color: #555;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+.nav-link:hover {
+    background-color: #f5f5f5;
+    color: #007bff;
+}
+
+.nav-link.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.nav-link i {
+    margin-right: 12px;
+    font-size: 18px;
+    width: 20px;
+    text-align: center;
+}
+
+/* Profil Menüsü */
+.profile-container {
+    position: relative;
+}
+
+.profile-trigger {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+}
+
+.profile-trigger:hover {
+    background-color: #f5f5f5;
+}
+
+.profile-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-info {
+    flex-grow: 1;
+}
+
+.profile-name {
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.profile-status {
+    font-size: 12px;
+    color: #888;
+    margin: 0;
+}
+
+.profile-arrow {
+    margin-left: 5px;
+    transition: transform 0.3s;
+}
+
+.profile-trigger[aria-expanded="true"] .profile-arrow {
+    transform: rotate(180deg);
+}
+
+.profile-menu {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 100%;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+    display: none;
+    z-index: 10;
+}
+
+.profile-menu.open {
+    display: block;
+}
+
+.profile-menu-item {
+    display: block;
+    padding: 10px 15px;
+    color: #555;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.profile-menu-item:hover {
+    background-color: #f5f5f5;
+}
+
+.profile-menu-item.logout {
+    color: #dc3545;
+}
+
+.profile-menu-item i {
+    margin-right: 10px;
+    width: 16px;
+    text-align: center;
+}
+
+/* Login/Register Buttons */
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.login-btn,
+.register-btn {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+
+.login-btn {
+    background-color: #fff;
+    color: #007bff;
+    border: 1px solid #007bff;
+}
+
+.login-btn:hover {
+    background-color: #f0f7ff;
+}
+
+.register-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: 1px solid #007bff;
+}
+
+.register-btn:hover {
+    background-color: #0069d9;
+}
+
+/* Sidebar Toggle Button */
+.sidebar-toggle {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 999;
+    background-color: #fff;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.sidebar-toggle:hover {
+    background-color: #f5f5f5;
+}
+
+.sidebar-toggle i {
+    font-size: 20px;
+    color: #333;
+}
+
+/* Overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+    transition: opacity 0.3s;
+}
+
+.overlay.active {
+    display: block;
+}
+
+/* Main Content - Sidebar ile çalışacak şekilde */
+.main-content {
+    margin-left: 280px;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+
+/* Responsize Design - Masaüstü görünümü */
+@media (min-width: 769px) {
+    .sidebar {
+        transform: translateX(0) !important;
+    }
+    
+    .sidebar-toggle {
+        display: none;
+    }
+    
+    .main-content {
+        margin-left: 280px;
+    }
+}

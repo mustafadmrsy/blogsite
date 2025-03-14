@@ -1,0 +1,176 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="Site" %>
+
+<!DOCTYPE html>
+<html lang="tr">
+<head runat="server">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senirkent Blog</title>
+    <link rel="stylesheet" href="Content/main.css">
+    <link rel="stylesheet" href="Content/blog-card.css">
+    <link rel="stylesheet" href="Content/blog-popup.css">
+    <link rel="stylesheet" href="Content/notification.css">
+    <link rel="stylesheet" href="Content/comment-system.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="Content/auth-forms.css">
+    <link rel="stylesheet" href="Content/form-fixes.css">
+    <link rel="stylesheet" href="Content/terms-policy.css">
+    <link rel="stylesheet" href="Content/darkmode.css">
+    <link rel="stylesheet" href="Content/sidebar.css">
+    <link rel="stylesheet" href="Content/sidebar-mobile-fix.css">
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="snk-container">
+            <!-- Header -->
+            <header class="snk-header">
+                <!-- Logo Alanı -->
+                <div class="snk-header-logo">
+                    <img src="Images/logo.png" alt="Senirkent Blog" class="snk-logo-img">
+                    <h1 class="snk-site-title">Senirkent Blog</h1>
+                </div>
+                
+                <!-- Arama Alanı -->
+                <div class="snk-header-search">
+                    <div class="snk-search-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <asp:TextBox ID="txtSearch" runat="server" CssClass="snk-search-input" placeholder="Blog'da ara..."></asp:TextBox>
+                </div>
+                
+                <!-- Butonlar ve Profil -->
+                <div class="snk-header-actions">
+                    <!-- Profil Dropdown Menüsü -->
+                    <div class="snk-user-profile-dropdown">
+                        <button id="profileDropdownBtn" class="snk-profile-dropdown-btn" type="button">
+                            <i class="fas fa-user"></i> Profilim
+                        </button>
+                        <div id="profileDropdownMenu" class="snk-profile-dropdown-menu">
+                            <div class="snk-profile-header">
+                                <img src="Images/profile.png" alt="Profil" class="snk-menu-profile-img">
+                                <div class="snk-profile-info">
+                                    <h4 class="snk-user-name">
+                                        <asp:Literal ID="litUserName" runat="server"></asp:Literal>
+                                    </h4>
+                                    <p class="snk-user-handle">
+                                        <asp:Literal ID="litUserHandle" runat="server"></asp:Literal>
+                                    </p>
+                                </div>
+                            </div>
+                            <ul class="snk-profile-menu-list">
+                                <li><a href="Kullanici.aspx"><i class="fas fa-user-circle"></i> Profili Görüntüle</a></li>
+                                <li class="snk-toggle-item">
+                                    <span><i class="fas fa-moon"></i> Karanlık Mod</span>
+                                    <label class="snk-toggle-switch">
+                                        <input type="checkbox" id="darkModeToggle" checked>
+                                        <span class="snk-toggle-slider"></span>
+                                    </label>
+                                </li>
+                                <li class="snk-divider"></li>
+                                <li><asp:LinkButton ID="btnLogout" runat="server" CssClass="snk-logout" OnClick="btnLogout_Click"><i class="fas fa-sign-out-alt"></i> Çıkış Yap</asp:LinkButton></li>
+                                <li><a href="#"><i class="fas fa-cog"></i> Ayarlar</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <asp:LinkButton ID="btnLogin" runat="server" CssClass="snk-header-btn snk-login-btn" OnClick="btnLogin_Click">
+                        <i class="fas fa-sign-in-alt"></i> Oturum Aç
+                    </asp:LinkButton>
+                    <asp:LinkButton ID="btnRegister" runat="server" CssClass="snk-header-btn snk-register-btn" OnClick="btnRegister_Click">
+                        <i class="fas fa-user-plus"></i> Kaydol
+                    </asp:LinkButton>
+                    <asp:LinkButton ID="btnCreate" runat="server" CssClass="snk-header-btn snk-create-btn" OnClick="btnCreate_Click">
+                        <i class="fas fa-plus"></i> Oluştur
+                    </asp:LinkButton>
+                </div>
+            </header>
+
+            <div class="snk-content-wrapper">
+                <!-- Sidebar -->
+                <div class="snk-sidebar">
+                    <!-- Sidebar Header ve Toggle Butonu -->
+                    <div class="snk-sidebar-header">
+                        <h3 class="snk-sidebar-title">Menü</h3>
+                        <!-- Sidebar Toggle Button -->
+                        <button class="snk-sidebar-toggle" id="sidebarToggle" type="button">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Ana Navigasyon -->
+                    <div class="snk-sidebar-section">
+                        <a href="Default.aspx" class="snk-sidebar-item" id="menuHome" runat="server">
+                            <i class="fas fa-home"></i>
+                            <span class="snk-sidebar-text">Ana Sayfa</span>
+                        </a>
+                        <a href="#" class="snk-sidebar-item" id="snk_sidebarPopular">
+                            <i class="fas fa-fire"></i>
+                            <span class="snk-sidebar-text">Popüler</span>
+                        </a>
+                        <a href="Kategoriler.aspx" class="snk-sidebar-item" id="menuCategories" runat="server">
+                            <i class="fas fa-th-large"></i>
+                            <span class="snk-sidebar-text">Kategoriler</span>
+                        </a>
+                    </div>
+                    <!-- Özel Beslemeler -->
+                    <div class="snk-sidebar-section">
+                        <h3 class="snk-sidebar-heading">ÖZEL BESLEMELER</h3>
+                        <a href="#" class="snk-sidebar-item">
+                            <i class="fas fa-star"></i>
+                            <span class="snk-sidebar-text">Favoriler</span>
+                        </a>
+                        <a href="#" class="snk-sidebar-item">
+                            <i class="fas fa-history"></i>
+                            <span class="snk-sidebar-text">Geçmiş</span>
+                        </a>
+                    </div>               
+                    <!-- Kaynaklar -->
+                    <div class="snk-sidebar-section">
+                        <h3 class="snk-sidebar-heading">KAYNAKLAR</h3>
+                        <a href="Hakkimizda.aspx" class="snk-sidebar-item" id="menuAbout" runat="server">
+                            <i class="fas fa-info-circle"></i>
+                            <span class="snk-sidebar-text">Hakkımızda</span>
+                        </a>
+                        <a href="Iletisim.aspx" class="snk-sidebar-item" id="menuContact" runat="server">
+                            <i class="fas fa-envelope"></i>
+                            <span class="snk-sidebar-text">İletişim</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Ana İçerik -->
+                <main class="snk-main-content">
+                    <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                    </asp:ContentPlaceHolder>
+                </main>
+            </div>
+        </div>
+
+        <!-- Popup Container -->
+        <div class="snk-popup-overlay" id="snk_popupOverlay">
+            <div class="snk-popup-container">
+                <div class="snk-popup-header">
+                    <h2 class="snk-popup-title" id="snk_popupTitle"></h2>
+                    <button class="snk-popup-close-btn" id="snk_popupCloseBtn" type="button">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="snk-popup-content" id="snk_popupContent">
+                    <!-- Popup içeriği JavaScript ile yüklenir -->
+                </div>
+            </div>
+        </div>
+
+        <!-- JavaScript -->
+        <script src="Scripts/jquery-3.6.0.min.js"></script>
+        <script src="Scripts/sidebar.js"></script>
+        <script src="Scripts/profile-dropdown.js"></script>
+        <script src="Scripts/darkmode.js"></script>
+        <script src="Scripts/popup.js"></script>
+        <asp:ContentPlaceHolder ID="Scripts" runat="server">
+        </asp:ContentPlaceHolder>
+    </form>
+</body>
+</html>
