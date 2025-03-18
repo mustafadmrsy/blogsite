@@ -1,0 +1,1008 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senirkent MYO Blog - Admin Panel</title>
+    <link rel="stylesheet" href="style/main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="icon" href="../img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="assets/style/aboutus.css"/>
+    <link rel="stylesheet" href="assets/style/categories.css"/>
+    <link rel="stylesheet" href="assets/style/contact.css"/>
+    <link rel="stylesheet" href="assets/style/main.css"/>
+    <link rel="stylesheet" href="assets/style/userpage.css"/>
+    <link rel="stylesheet" href="assets/style/sidebar.css"/>
+    <link rel="stylesheet" href="assets/style/indexspesific.css"/>
+    <link rel="stylesheet" href="assets/style/blogcard.css"/>
+    <link rel="stylesheet" href="assets/style/blogdetails.css"/>
+    <link rel="stylesheet" href="assets/style/blogpopup.css"/>
+    <link rel="stylesheet" href="assets/style/commentsystem.css"/>
+    <link rel="stylesheet" href="assets/style/formfixes.css"/>
+    <link rel="stylesheet" href="assets/style/notification.css"/>
+    <link rel="stylesheet" href="assets/style/terms-policy.css"/>
+    <link rel="stylesheet" href="assets/style/auth-forms.css" />
+    <link rel="stylesheet" href="assets/style/sidebar-mobile-fix.css" />
+    <style>
+        /* Admin Panel Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: black rgba(0, 0, 0, 0.5);
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+        }
+        
+        body.dark-mode .admin-container {
+            background-color: #2a2a2a;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        body.dark-mode .admin-header {
+            background-color: #333;
+            color: #fff;
+        }
+        
+        body.dark-mode .tab-button {
+            background-color: #444;
+            color: #ddd;
+        }
+        
+        body.dark-mode .tab-button.active {
+            background-color: #555;
+            color: #fff;
+        }
+        
+        body.dark-mode .user-card {
+            background-color: #333;
+            border: 1px solid #444;
+        }
+        
+        body.dark-mode .verification-code {
+            background-color: #2d3748;
+            color: #90cdf4;
+            border: 1px solid #4a5568;
+        }
+        
+        body.dark-mode .status-badge {
+            background-color: #2d3748;
+            color: #68d391;
+        }
+        
+        body.dark-mode .action-button {
+            background-color: #4a5568;
+            color: #fff;
+        }
+        
+        body.dark-mode .action-button:hover {
+            background-color: #2d3748;
+        }
+        
+        body.dark-mode .modal-content {
+            background-color: #2a2a2a;
+            color: #f0f0f0;
+        }
+        
+        body.dark-mode .alert-box {
+            background-color: #2a2a2a;
+            color: #f0f0f0;
+        }
+        
+        body.dark-mode .alert-success {
+            background-color: #276749;
+        }
+        
+        body.dark-mode .alert-error {
+            background-color: #9b2c2c;
+        }
+        
+        body.dark-mode .status-badge.pending {
+            background-color: #2c5282;
+            color: #90cdf4;
+        }
+        
+        body.dark-mode .status-badge.verified {
+            background-color: #276749;
+            color: #68d391;
+        }
+        
+        body.dark-mode .approve-btn {
+            background-color: #276749;
+            color: #fff;
+        }
+        
+        body.dark-mode .approve-btn:hover {
+            background-color: #1c4532;
+        }
+        
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        .page-title {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .page-title:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: #3498db;
+        }
+        
+        .panel-container {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .panel-container {
+                flex-direction: column;
+            }
+        }
+        
+        .panel {
+            flex: 1;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .panel-header {
+            background-color: #3498db;
+            color: white;
+            padding: 15px 20px;
+            font-size: 1.2rem;
+        }
+        
+        .panel-body {
+            padding: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .user-card {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .user-card.verified {
+            border-left-color: #2ecc71;
+        }
+        
+        .user-info {
+            margin-bottom: 8px;
+        }
+        
+        .user-info strong {
+            color: #34495e;
+            font-weight: 600;
+        }
+        
+        .verification-code {
+            display: inline-block;
+            background-color: #ebf8ff;
+            color: #3182ce;
+            border: 1px solid #bee3f8;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .status-badge.pending {
+            background-color: #ebf8ff;
+            color: #3182ce;
+        }
+        
+        .status-badge.verified {
+            background-color: #f0fff4;
+            color: #38a169;
+        }
+        
+        .status-badge.active {
+            background-color: #e6fffa;
+            color: #319795;
+        }
+        
+        .refresh-button {
+            display: block;
+            margin: 0 auto 30px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .refresh-button:hover {
+            background-color: #2980b9;
+        }
+        
+        .no-users {
+            text-align: center;
+            color: #7f8c8d;
+            padding: 30px 0;
+            font-style: italic;
+        }
+        
+        /* Loader */
+        .loader {
+            text-align: center;
+            padding: 20px;
+            display: none;
+        }
+        
+        .loader-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Aksiyon Butonları */
+        .action-buttons {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-button {
+            border: none;
+            border-radius: 4px;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s;
+        }
+        
+        .approve-btn {
+            background-color: #48bb78;
+            color: white;
+        }
+        
+        .approve-btn:hover {
+            background-color: #38a169;
+        }
+        
+        .reject-btn {
+            background-color: #f56565;
+            color: white;
+        }
+        
+        .reject-btn:hover {
+            background-color: #e53e3e;
+        }
+        
+        /* Modal/Confirm Dialog */
+        .confirm-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .confirm-dialog {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 400px;
+            max-width: 90%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .confirm-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .confirm-message {
+            margin-bottom: 20px;
+            color: #34495e;
+        }
+        
+        .confirm-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        .confirm-cancel {
+            background-color: #ecf0f1;
+            border: none;
+            color: #7f8c8d;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .confirm-proceed {
+            background-color: #e74c3c;
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        /* Alert Box */
+        .alert-box {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 4px;
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: none;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+            max-width: 350px;
+        }
+        
+        .alert-box.success {
+            border-left: 4px solid #2ecc71;
+        }
+        
+        .alert-box.error {
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .alert-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        
+        .alert-message {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Local Users Modal */
+        .local-users-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .local-users-dialog {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 400px;
+            max-width: 90%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .local-users-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .local-users-message {
+            margin-bottom: 20px;
+            color: #34495e;
+        }
+        
+        .local-users-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        .local-users-cancel {
+            background-color: #ecf0f1;
+            border: none;
+            color: #7f8c8d;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .local-users-clear {
+            background-color: #e74c3c;
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        /* Admin Login Form Styles */
+        .admin-login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        
+        .admin-login-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            width: 400px;
+            max-width: 90%;
+            text-align: center;
+        }
+        
+        body.dark-mode .admin-login-container {
+            background-color: #2a2a2a;
+            color: #f0f0f0;
+        }
+        
+        .admin-login-container h2 {
+            margin-top: 0;
+            color: #3498db;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .admin-password-input {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+        
+        body.dark-mode .admin-password-input {
+            background-color: #333;
+            color: #fff;
+            border-color: #444;
+        }
+        
+        .admin-login-buttons {
+            margin-top: 20px;
+        }
+        
+        .admin-login-button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .admin-login-button:hover {
+            background-color: #2980b9;
+        }
+        
+        body.dark-mode .admin-login-button {
+            background-color: #2c5282;
+        }
+        
+        body.dark-mode .admin-login-button:hover {
+            background-color: #1a365d;
+        }
+        
+        /* Admin Karşılama Mesajı */
+        .admin-welcome-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            z-index: 1000;
+            display: none;
+            animation: slideText 15s linear infinite;
+            overflow: hidden;
+            white-space: nowrap;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        @keyframes slideText {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        /* Dark Mode için karşılama mesajı */
+        body.dark-mode .admin-welcome-banner {
+            background-color: #1a1a2e;
+            color: #f0f0f0;
+            box-shadow: 0 2px 5px rgba(255,255,255,0.1);
+        }
+        
+        /* Admin Pending Posts Styling */
+        .admin-post-item {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .admin-post-item:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+        
+        .admin-post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .admin-post-title {
+            margin: 0;
+            color: #2c3e50;
+            font-size: 18px;
+        }
+        
+        .admin-post-category {
+            background-color: #3498db;
+            color: white;
+            font-size: 12px;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        
+        .admin-post-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+        
+        .admin-post-summary {
+            margin-bottom: 10px;
+        }
+        
+        .admin-post-summary p {
+            margin: 0 0 10px 0;
+            color: #34495e;
+        }
+        
+        .admin-view-full-post {
+            background-color: transparent;
+            border: 1px solid #3498db;
+            color: #3498db;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .admin-view-full-post:hover {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .admin-post-content {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            margin: 10px 0;
+            white-space: pre-wrap;
+            max-height: none;
+            overflow-y: auto;
+        }
+        
+        .admin-post-content .content-wrapper {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: inherit;
+            margin: 0;
+            padding: 0;
+            overflow: visible;
+            max-width: 100%;
+            color: #34495e;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+        
+        /* Dark Mode adjustments for post content */
+        body.dark-mode .admin-post-content {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+        }
+        
+        body.dark-mode .admin-post-content .content-wrapper {
+            color: #ecf0f1;
+        }
+        
+        .admin-post-tags {
+            margin-top: 10px;
+        }
+        
+        .admin-tag {
+            background-color: #e1f0fa;
+            color: #3498db;
+            padding: 2px 5px;
+            border-radius: 3px;
+            margin-right: 5px;
+            font-size: 12px;
+        }
+        
+        .admin-post-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .admin-approve-post {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .admin-approve-post:hover {
+            background-color: #27ae60;
+        }
+        
+        .admin-reject-post {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .admin-reject-post:hover {
+            background-color: #c0392b;
+        }
+        
+        .no-data-message {
+            text-align: center;
+            color: #7f8c8d;
+            padding: 20px;
+            font-style: italic;
+        }
+        
+        /* Dark Mode adjustments for post items */
+        body.dark-mode .admin-post-item {
+            background-color: #2d3436;
+            box-shadow: 0 2px 5px rgba(255,255,255,0.05);
+        }
+        
+        body.dark-mode .admin-post-title {
+            color: #f0f0f0;
+        }
+        
+        body.dark-mode .admin-post-summary p {
+            color: #dfe6e9;
+        }
+        
+        body.dark-mode .admin-tag {
+            background-color: #34495e;
+            color: #3498db;
+        }
+        
+        body.dark-mode .admin-view-full-post {
+            border-color: #3498db;
+            color: #3498db;
+        }
+        
+        body.dark-mode .admin-view-full-post:hover {
+            background-color: #3498db;
+            color: #ecf0f1;
+        }
+        
+        .admin-post-image {
+            margin: 10px 0;
+            text-align: center;
+            border-radius: 8px;
+            overflow: hidden;
+            max-height: 300px;
+            background-color: #f5f5f5;
+        }
+        
+        .admin-post-image img {
+            max-width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        body.dark-mode .admin-post-image {
+            background-color: #2d3436;
+        }
+        
+        body.dark-mode .admin-post-image img {
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        
+        .admin-post-status {
+            margin-left: 10px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background-color: #27ae60;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .admin-delete-post {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .admin-delete-post:hover {
+            background-color: #c0392b;
+        }
+        
+        /* Dark Mode uyumluluğu için ek stiller */
+        body.dark-mode .admin-post-status {
+            background-color: #2ecc71;
+            color: #ecf0f1;
+        }
+        
+        body.dark-mode .admin-delete-post {
+            background-color: #e74c3c;
+            color: #ecf0f1;
+        }
+        
+        body.dark-mode .admin-delete-post:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-welcome-banner">
+        Hoşgeldiniz, Admin Paneline!
+    </div>
+    <div class="admin-container">
+        <h1 class="page-title">Senirkent MYO Blog - Admin Panel</h1>
+        
+        <button id="refresh-button" class="refresh-button">
+            <i class="fas fa-sync-alt"></i> Listeyi Yenile
+        </button>
+        
+        <button id="view-local-users-button" class="refresh-button" style="background-color: #27ae60; margin-bottom: 20px;">
+            <i class="fas fa-database"></i> Yerel Kayıtları Görüntüle
+        </button>
+        
+        <button id="admin-logout-button" class="refresh-button" style="background-color: #e74c3c; margin-bottom: 20px;">
+            <i class="fas fa-sign-out-alt"></i> Çıkış Yap
+        </button>
+        
+        <div class="refresh-button" style="display: inline-flex; align-items: center; justify-content: center; background-color: #3498db; margin-bottom: 20px;">
+            <i class="fas fa-moon"></i> Dark Mode
+            <label class="snk-toggle-switch eren-theme-switch" style="margin-left: 10px;">
+                <input type="checkbox" id="darkModeToggle">
+                <span class="snk-toggle-slider eren-switch-ball"></span>
+            </label>
+        </div>
+        
+        <div class="panel-container">
+            <div class="panel">
+                <div class="panel-header">
+                    Onay Bekleyen Yazılar
+                </div>
+                <div class="panel-body">
+                    <div id="pending-posts-loader" class="loader">
+                        <div class="loader-spinner"></div>
+                    </div>
+                    <div id="pending-posts"></div>
+                </div>
+            </div>
+            
+            <div class="panel">
+                <div class="panel-header">
+                    Yayında Olan Yazılar
+                </div>
+                <div class="panel-body">
+                    <div id="published-posts-loader" class="loader">
+                        <div class="loader-spinner"></div>
+                    </div>
+                    <div id="published-posts"></div>
+                </div>
+            </div>
+            
+            <div class="panel">
+                <div class="panel-header">
+                    Onay Bekleyen Kullanıcılar
+                </div>
+                <div class="panel-body">
+                    <div id="pending-loader" class="loader">
+                        <div class="loader-spinner"></div>
+                    </div>
+                    <div id="pending-users"></div>
+                </div>
+            </div>
+            
+            <div class="panel">
+                <div class="panel-header">
+                    Onaylanmış Kullanıcılar
+                </div>
+                <div class="panel-body">
+                    <div id="verified-loader" class="loader">
+                        <div class="loader-spinner"></div>
+                    </div>
+                    <div id="verified-users"></div>
+                </div>
+            </div>
+            
+            <div class="panel">
+                <div class="panel-header">
+                    Kayıtlı Kullanıcılar
+                </div>
+                <div class="panel-body">
+                    <div id="registered-loader" class="loader">
+                        <div class="loader-spinner"></div>
+                    </div>
+                    <div id="registered-users"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Confirm Modal -->
+    <div id="confirm-modal" class="confirm-modal">
+        <div class="confirm-dialog">
+            <div class="confirm-title">Kullanıcıyı Reddet</div>
+            <div class="confirm-message">Bu kullanıcıyı gerçekten reddetmek istiyor musunuz? Bu işlem geri alınamaz.</div>
+            <div class="confirm-buttons">
+                <button id="confirm-cancel" class="confirm-cancel">İptal</button>
+                <button id="confirm-proceed" class="confirm-proceed">Reddet</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Registration Pending Modal -->
+    <div id="pending-approval-modal" class="confirm-modal">
+        <div class="confirm-dialog">
+            <div class="confirm-title">Yönetici Onayı Bekleniyor</div>
+            <div class="confirm-message">
+                <p>Aşağıdaki durumlardan biri veya her ikisi de geçerli olabilir:</p>
+                <ul style="text-align: left; margin: 15px 0; padding-left: 20px;">
+                    <li>Hesabınız onay bekliyor olabilir. Yönetici onayından sonra tüm özelliklere erişebileceksiniz.</li>
+                    <li>Gönderdiğiniz blog yazılarının onaylanmasını bekliyor olabilirsiniz. Yazılarınız yönetici tarafından onaylandıktan sonra yayınlanacaktır.</li>
+                </ul>
+                <p>Onay durumunuz e-posta ile bildirilecektir.</p>
+            </div>
+            <div class="confirm-buttons">
+                <button id="pending-approval-ok" class="confirm-cancel">Anladım</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Alert Box -->
+    <div id="alert-box" class="alert-box">
+        <div class="alert-title">Başarılı</div>
+        <div class="alert-message">İşlem başarıyla tamamlandı.</div>
+    </div>
+    
+    <!-- Local Users Modal -->
+    <div id="local-users-modal" class="confirm-modal">
+        <div class="confirm-dialog" style="width: 80%; max-width: 800px; max-height: 80vh; overflow-y: auto;">
+            <div class="confirm-title">Yerel Kayıtlı Kullanıcılar</div>
+            <div id="local-users-container" style="margin-bottom: 20px;">
+                <div class="loader-spinner" style="margin: 20px auto;"></div>
+            </div>
+            <div class="confirm-buttons">
+                <button id="local-users-close" class="confirm-cancel">Kapat</button>
+                <button id="local-users-clear" class="confirm-proceed" style="background-color: #e74c3c;">Tüm Yerel Kayıtları Temizle</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel Script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../darkjs/darkmode.js"></script>
+    <script src="assets/components/admin-auth.js"></script>
+    <script src="assets/components/admin-posts.js">></script>
+    <script src="assets/components/admin-users.js"></script>
+    
+    <!-- Kullanıcı Yönetimi Debug Script - Geçici -->
+    <script>
+        // Sayfa tamamen yüklendikten sonra çalışacak
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                console.log('Debug script çalışıyor...');
+                
+                // localStorage'daki tüm verileri kontrol et
+                console.log('LocalStorage içeriği:');
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    console.log(`${key}: ${localStorage.getItem(key).substring(0, 50)}...`);
+                }
+            }, 2000); // 2 saniye bekle
+        });
+    </script>
+</body>
+</html>
