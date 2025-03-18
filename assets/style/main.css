@@ -1,0 +1,3779 @@
+﻿/* Main CSS - Senirkent Blog */
+/* Önek: snk- (Kod çakışmalarını önlemek için her seçicide kullanılacak) */
+
+/* Genel Sıfırlama ve Temel Stilller */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+    --snk-vivid-blue: #0079D3;
+    --snk-dark-blue: #0061A9;
+    --snk-light-blue: #24A0ED;
+    --snk-white: #D7DADC;
+    --snk-light-gray: #272729;
+    --snk-gray: #818384;
+    --snk-dark-gray: #D7DADC;
+    --snk-black: #1A1A1B;
+    --snk-border-color: #343536;
+    --snk-sidebar-width: 250px;
+    --snk-sidebar-collapsed-width: 60px;
+    --snk-blue: #0079D3;
+}
+
+body {
+    background-color: var(--snk-black);
+    color: var(--snk-white);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Ana Container */
+.snk-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Content Wrapper */
+.snk-content-wrapper {
+    display: flex;
+    flex: 1;
+    position: relative;
+}
+
+/* Sidebar */
+.snk-sidebar {
+    position: fixed;
+    left: 0;
+    top: 50px;
+    height: calc(100vh - 50px);
+    width: var(--snk-sidebar-width);
+    background-color: var(--snk-black);
+    border-right: 1px solid var(--snk-border-color);
+    transition: width 0.3s ease, transform 0.3s ease;
+    z-index: 50;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.snk-sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 15px;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.snk-sidebar-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--snk-white);
+}
+
+.snk-sidebar-toggle {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+    z-index: 95;
+    background-color: var(--snk-blue);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+    .snk-sidebar-toggle:hover {
+        background-color: #0066b3;
+        transform: scale(1.1);
+    }
+
+    .snk-sidebar-toggle i {
+        transition: transform 0.3s ease;
+    }
+
+.snk-sidebar.collapsed .snk-sidebar-toggle i {
+    transform: rotate(180deg);
+}
+
+.snk-sidebar.collapsed {
+    width: var(--snk-sidebar-collapsed-width);
+}
+
+    .snk-sidebar.collapsed .snk-sidebar-text,
+    .snk-sidebar.collapsed .snk-sidebar-heading,
+    .snk-sidebar.collapsed .snk-sidebar-title {
+        display: none;
+    }
+
+.snk-sidebar-section {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--snk-border-color);
+}
+
+    .snk-sidebar-section:last-child {
+        border-bottom: none;
+    }
+
+.snk-sidebar-heading {
+    padding: 0 20px;
+    margin-bottom: 8px;
+    color: var(--snk-gray);
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.snk-sidebar-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    color: var(--snk-white);
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+    .snk-sidebar-item:hover {
+        background-color: rgba(255, 255, 255, 0.04);
+    }
+
+    .snk-sidebar-item.active {
+        color: var(--snk-white);
+        background-color: rgba(255, 255, 255, 0.06);
+        font-weight: 500;
+    }
+
+    .snk-sidebar-item i {
+        margin-right: 12px;
+        width: 20px;
+        text-align: center;
+        font-size: 18px;
+    }
+
+.snk-sidebar.collapsed .snk-sidebar-item i {
+    margin-right: 0;
+}
+
+.snk-mobile-menu-btn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--snk-light-gray);
+    color: var(--snk-white);
+    border: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 99;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+    .snk-mobile-menu-btn:hover {
+        background-color: #333333;
+    }
+
+/* Main Content */
+.snk-main-content {
+    flex: 1;
+    padding: 20px;
+    margin-left: var(--snk-sidebar-width);
+    transition: margin 0.3s ease;
+    background-color: var(--snk-black);
+    min-height: calc(100vh - 50px);
+}
+
+.snk-sidebar.collapsed ~ .snk-main-content {
+    margin-left: var(--snk-sidebar-collapsed-width);
+}
+
+/* İçerik Başlık ve Filtreler */
+.snk-content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--snk-border-color);
+}
+
+.snk-content-title {
+    font-size: 1.2rem;
+    color: var(--snk-white);
+    font-weight: 500;
+}
+
+.snk-filter-container {
+    display: flex;
+    gap: 10px;
+}
+
+.snk-filter-btn {
+    background: var(--snk-light-gray);
+    border: 1px solid var(--snk-border-color);
+    border-radius: 20px;
+    padding: 8px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    color: var(--snk-white);
+    font-size: 14px;
+}
+
+    .snk-filter-btn:hover {
+        background-color: #333333;
+    }
+
+    .snk-filter-btn.active {
+        background-color: var(--snk-blue);
+        color: #FFFFFF;
+        border-color: var(--snk-blue);
+    }
+
+/* Blog Posts - Reddit Tarzı */
+.snk-posts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.snk-post {
+    background-color: var(--snk-light-gray);
+    border-radius: 8px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--snk-border-color);
+}
+
+.snk-post-content-wrapper {
+    display: flex;
+    width: 100%;
+}
+
+/* Vote butonları - artık kullanılmıyor */
+/* 
+.snk-post-vote {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 8px;
+    background-color: rgba(0, 0, 0, 0.1);
+    min-width: 42px;
+}
+
+.snk-vote-btn {
+    background: none;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    font-size: 18px;
+    display: block;
+    padding: 0;
+}
+
+.snk-vote-btn:hover {
+    color: #333;
+}
+
+.snk-vote-btn.active {
+    color: #0079D3;
+}
+
+.snk-vote-count {
+    font-size: 14px;
+    font-weight: bold;
+    color: #1A1A1B;
+    text-align: center;
+    margin: 4px 0;
+}
+*/
+
+.snk-post-main {
+    flex: 1;
+    padding: 12px;
+}
+
+.snk-post-header {
+    margin-bottom: 10px;
+}
+
+.snk-post-info {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--snk-gray);
+    margin-bottom: 6px;
+}
+
+.snk-post-category {
+    color: var(--snk-white);
+    background-color: var(--snk-vivid-blue);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.snk-post-author {
+    color: var(--snk-white);
+    font-weight: 500;
+}
+
+.snk-post-title {
+    font-size: 18px;
+    color: var(--snk-white);
+    margin: 0 0 8px 0;
+    line-height: 1.3;
+}
+
+.snk-post-image {
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+    .snk-post-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+        max-height: 400px;
+        object-fit: contain;
+    }
+
+.snk-post-summary {
+    color: var(--snk-white);
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+}
+
+.snk-post-footer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Popup */
+.snk-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+    .snk-popup-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+.snk-popup-container {
+    background-color: var(--snk-black);
+    border-radius: 12px;
+    border: 1px solid var(--snk-border-color);
+    width: 95%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.snk-popup-overlay.active .snk-popup-container {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.snk-popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid var(--snk-border-color);
+}
+
+.snk-popup-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--snk-white);
+    margin: 0;
+}
+
+.snk-popup-close-btn {
+    background: none;
+    border: none;
+    color: var(--snk-gray);
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+    .snk-popup-close-btn:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--snk-white);
+    }
+
+.snk-popup-content {
+    padding: 20px;
+}
+
+/* Article Styling */
+.snk-article-metadata {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 16px;
+    color: var(--snk-gray);
+    font-size: 14px;
+}
+
+.snk-article-image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.snk-article-content {
+    color: var(--snk-white);
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+    .snk-article-content p {
+        margin-bottom: 16px;
+    }
+
+.snk-article-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.snk-article-tag {
+    background-color: #333333;
+    color: var(--snk-white);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+/* Yardımcı Sınıflar */
+.snk-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    color: var(--snk-gray);
+}
+
+    .snk-loading i {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+.snk-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 40px;
+    color: #FF585B;
+}
+
+    .snk-error i {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+.snk-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 40px;
+    color: var(--snk-blue);
+}
+
+    .snk-info i {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--snk-black);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #333333;
+    border-radius: 4px;
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--snk-gray);
+    }
+
+/* Mobil uyumluluğu */
+@media screen and (max-width: 768px) {
+    .snk-main-content {
+        margin-left: 0;
+        padding: 15px;
+    }
+
+    .snk-sidebar.collapsed ~ .snk-main-content {
+        margin-left: 0;
+    }
+
+    .snk-content-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .snk-filter-container {
+        overflow-x: auto;
+        width: 100%;
+        padding-bottom: 5px;
+    }
+
+    /* Reddit tarzı kartlar için mobil düzenlemeler */
+    .snk-post-content-wrapper {
+        flex-direction: column;
+    }
+
+    .snk-post-vote {
+        flex-direction: row;
+        min-width: 100%;
+        padding: 4px;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .snk-post-footer {
+        flex-wrap: wrap;
+    }
+
+    .snk-post-action {
+        font-size: 0.7rem;
+    }
+
+    .snk-post-category {
+        margin-top: 8px;
+        margin-left: 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Devamını Oku butonu için özel stillemeler */
+    .snk-post-action.snk-read-more {
+        background: linear-gradient(45deg, var(--snk-blue), var(--snk-light-blue));
+        color: #FFFFFF;
+        border-radius: 50px;
+        padding: 8px 16px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 121, 211, 0.3);
+        z-index: 1;
+    }
+
+        .snk-post-action.snk-read-more::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+            z-index: -1;
+        }
+
+        .snk-post-action.snk-read-more:hover {
+            background: linear-gradient(45deg, var(--snk-dark-blue), var(--snk-blue));
+            box-shadow: 0 6px 15px rgba(0, 121, 211, 0.4);
+            transform: translateY(-3px);
+        }
+
+            .snk-post-action.snk-read-more:hover i {
+                transform: translateX(5px);
+            }
+
+            .snk-post-action.snk-read-more:hover::before {
+                transform: rotate(45deg) translate(300%, 300%);
+            }
+
+        .snk-post-action.snk-read-more:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(0, 121, 211, 0.3);
+        }
+
+        .snk-post-action.snk-read-more i {
+            transition: transform 0.3s ease;
+        }
+
+    .snk-sidebar {
+        width: 100%;
+        height: calc(100vh - 50px);
+        transform: translateX(-100%);
+        position: fixed;
+        z-index: 100;
+    }
+
+        .snk-sidebar.active {
+            transform: translateX(0);
+        }
+
+    .snk-mobile-menu-btn {
+        display: flex;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        z-index: 99;
+    }
+}
+
+/* Genişletilen post içeriği için stiller */
+.snk-post.expanded {
+    transition: all 0.3s ease;
+}
+
+    .snk-post.expanded .snk-post-main {
+        padding: 16px 20px;
+    }
+
+.snk-post-full-content {
+    color: var(--snk-white);
+    line-height: 1.6;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+}
+
+    .snk-post-full-content p {
+        margin-bottom: 15px;
+    }
+
+.snk-post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 15px;
+}
+
+.snk-tag {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--snk-light);
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 3px;
+    transition: background-color 0.2s ease;
+}
+
+    .snk-tag:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+/* Oy butonları aktif durum stilleri */
+.snk-vote-btn.active.snk-upvote {
+    color: #FF4500; /* Reddit Upvote rengi */
+}
+
+.snk-vote-btn.active.snk-downvote {
+    color: #7193FF; /* Reddit Downvote rengi */
+}
+
+/* Blog kartları için stil */
+.snk-post-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--snk-light-gray);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+}
+
+    .snk-post-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+.snk-post-image {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+}
+
+    .snk-post-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+.snk-post-card:hover .snk-post-image img {
+    transform: scale(1.05);
+}
+
+.snk-post-category {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    background: #0055FF; /* Vivid Blue */
+    color: white;
+    padding: 5px 12px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(0, 85, 255, 0.3);
+}
+
+.snk-post-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.snk-post-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    color: #111;
+    line-height: 1.3;
+}
+
+.snk-post-summary {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 1.2rem;
+    line-height: 1.5;
+    flex-grow: 1;
+}
+
+.snk-post-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+    font-size: 0.85rem;
+    color: #777;
+}
+
+    .snk-post-meta span {
+        display: flex;
+        align-items: center;
+        margin-right: 1rem;
+    }
+
+    .snk-post-meta i {
+        margin-right: 5px;
+        font-size: 14px;
+    }
+
+.snk-post-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.8rem 1.5rem;
+    background: #f9f9f9;
+    border-top: 1px solid #eee;
+}
+
+.snk-post-action-btn {
+    background: transparent;
+    border: none;
+    color: #555;
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+}
+
+    .snk-post-action-btn:hover {
+        background: rgba(0, 0, 0, 0.05);
+        color: #0055FF;
+    }
+
+    .snk-post-action-btn i {
+        margin-right: 5px;
+        font-size: 16px;
+    }
+
+    .snk-post-action-btn.liked {
+        color: #ff3852;
+    }
+
+    .snk-post-action-btn.commented {
+        color: #0055FF;
+    }
+
+/* Fade-in Animasyonu */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Gecikme Animasyonu */
+.fade-in:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.fade-in:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.fade-in:nth-child(4) {
+    animation-delay: 0.3s;
+}
+
+.fade-in:nth-child(5) {
+    animation-delay: 0.4s;
+}
+
+/* İkili kolonlu yerleşim düzeni (Blog yazıları ve sağ kenar çubuğu) */
+.snk-content-layout {
+    display: flex;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.snk-content-main {
+    flex: 1;
+    min-width: 0; /* Taşmaları engeller */
+    max-width: 800px; /* Çok geniş ekranlarda blog yazılarının çok fazla genişlemesini engeller */
+}
+
+.snk-content-sidebar {
+    width: 300px;
+    flex-shrink: 0;
+    background-color: var(--snk-light-gray);
+    border: 1px solid var(--snk-border-color);
+    border-radius: 4px;
+    height: fit-content;
+    position: sticky;
+    top: 20px;
+}
+
+/* Devamını Oku butonları için özel stil (Belleklerde belirtilen eski tasarımı korumak için) */
+.snk-post-action.snk-read-more {
+    background: linear-gradient(45deg, var(--snk-blue), var(--snk-light-blue));
+    color: #FFFFFF;
+    border-radius: 50px;
+    padding: 8px 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 121, 211, 0.3);
+    z-index: 1;
+}
+
+    .snk-post-action.snk-read-more::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transform: rotate(45deg);
+        transition: all 0.6s ease;
+        z-index: -1;
+    }
+
+    .snk-post-action.snk-read-more:hover {
+        background: linear-gradient(45deg, var(--snk-dark-blue), var(--snk-blue));
+        box-shadow: 0 6px 15px rgba(0, 121, 211, 0.4);
+        transform: translateY(-3px);
+    }
+
+        .snk-post-action.snk-read-more:hover i {
+            transform: translateX(5px);
+        }
+
+        .snk-post-action.snk-read-more:hover::before {
+            transform: rotate(45deg) translate(300%, 300%);
+        }
+
+    .snk-post-action.snk-read-more:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 5px rgba(0, 121, 211, 0.3);
+    }
+
+    .snk-post-action.snk-read-more i {
+        transition: transform 0.3s ease;
+    }
+
+/* Mobil uyumluluğu */
+@media screen and (max-width: 1024px) {
+    .snk-content-layout {
+        max-width: 100%;
+    }
+
+    .snk-content-main {
+        max-width: 100%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .snk-content-layout {
+        flex-direction: column;
+    }
+
+    .snk-content-sidebar {
+        width: 100%;
+        margin-top: 20px;
+        position: static;
+    }
+}
+
+/* Sağ sütun widget stilleri */
+.snk-sidebar-widget {
+    background-color: var(--snk-dark);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.snk-sidebar-widget-header {
+    padding: 15px 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    background: linear-gradient(to right, var(--snk-dark), var(--snk-dark-gray));
+}
+
+    .snk-sidebar-widget-header::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(to right, var(--snk-blue), transparent);
+    }
+
+.snk-sidebar-widget-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--snk-white);
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+    .snk-sidebar-widget-title::before {
+        content: '\f0eb';
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        color: var(--snk-blue);
+        margin-right: 8px;
+        font-size: 0.9em;
+    }
+
+.snk-sidebar-widget-content {
+    padding: 0;
+}
+
+/* En Çok Okunan Yazılar kutucuğu stilleri */
+.snk-popular-post-item {
+    padding: 16px 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+    .snk-popular-post-item::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 3px;
+        background: linear-gradient(to bottom, var(--snk-blue), transparent);
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .snk-popular-post-item:hover {
+        background-color: rgba(255, 255, 255, 0.04);
+        transform: translateX(4px);
+        border-radius: 0 5px 5px 0;
+    }
+
+        .snk-popular-post-item:hover::before {
+            opacity: 1;
+        }
+
+    .snk-popular-post-item:active {
+        transform: translateX(2px);
+    }
+
+.snk-popular-post-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    align-items: center;
+}
+
+.snk-popular-post-category {
+    font-size: 0.75rem;
+    color: var(--snk-blue);
+    font-weight: 500;
+    background-color: rgba(0, 121, 211, 0.1);
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+.snk-popular-post-views {
+    font-size: 0.75rem;
+    color: var(--snk-light);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+    .snk-popular-post-views i {
+        color: var(--snk-blue);
+        opacity: 0.8;
+    }
+
+.snk-popular-post-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--snk-white);
+    margin: 0;
+    line-height: 1.4;
+    transition: color 0.2s ease;
+}
+
+.snk-popular-post-item:hover .snk-popular-post-title {
+    color: var(--snk-light-blue);
+}
+
+.snk-more-link {
+    display: block;
+    padding: 14px 18px;
+    color: var(--snk-blue);
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    text-align: center;
+    background: linear-gradient(to right, rgba(0, 121, 211, 0.05), rgba(0, 121, 211, 0.1), rgba(0, 121, 211, 0.05));
+    font-weight: 500;
+}
+
+    .snk-more-link:hover {
+        background: rgba(0, 121, 211, 0.15);
+        color: var(--snk-light-blue);
+        text-decoration: none;
+    }
+
+    .snk-more-link i {
+        margin-left: 5px;
+        transition: transform 0.3s ease;
+    }
+
+    .snk-more-link:hover i {
+        transform: translateX(3px);
+    }
+
+.snk-no-posts {
+    padding: 16px;
+    text-align: center;
+    color: var(--snk-light);
+    font-style: italic;
+}
+
+/* Yükleme göstergesi stilleri */
+.snk-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: var(--snk-light);
+    gap: 10px;
+    font-size: 0.9rem;
+}
+
+/* Mobil uyumluluğu */
+@media screen and (max-width: 768px) {
+    .snk-popular-post-item {
+        padding: 15px 16px;
+    }
+
+    .snk-popular-post-title {
+        font-size: 1rem;
+    }
+
+    .snk-popular-post-meta {
+        margin-bottom: 6px;
+    }
+}
+
+/* Yorum sistemi ve paylaşım paneli stilleri */
+.snk-post-comments {
+    background-color: var(--snk-dark);
+    border-radius: 12px;
+    margin-top: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    display: none;
+}
+
+    .snk-post-comments.active {
+        display: block;
+        animation: snk-fade-in 0.3s ease;
+    }
+
+@keyframes snk-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.snk-comments-header {
+    padding: 14px 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to right, var(--snk-dark), var(--snk-dark-gray));
+}
+
+.snk-comments-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--snk-white);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+    .snk-comments-title i {
+        color: var(--snk-blue);
+        font-size: 0.9em;
+    }
+
+.snk-comments-count {
+    background-color: rgba(0, 121, 211, 0.2);
+    color: var(--snk-blue);
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.snk-comments-close {
+    color: var(--snk-light);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 5px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+    .snk-comments-close:hover {
+        color: var(--snk-white);
+        background-color: rgba(255, 255, 255, 0.1);
+        transform: rotate(90deg);
+    }
+
+.snk-comments-list {
+    padding: 0;
+}
+
+.snk-comment {
+    padding: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: background-color 0.2s ease;
+}
+
+    .snk-comment:last-child {
+        border-bottom: none;
+    }
+
+    .snk-comment:hover {
+        background-color: rgba(255, 255, 255, 0.03);
+    }
+
+.snk-comment-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.snk-comment-author {
+    font-weight: 600;
+    color: var(--snk-blue);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+}
+
+    .snk-comment-author i {
+        margin-right: 6px;
+        font-size: 0.8em;
+        color: var(--snk-light-blue);
+    }
+
+.snk-comment-date {
+    font-size: 0.75rem;
+    color: var(--snk-light);
+}
+
+.snk-comment-content {
+    font-size: 0.95rem;
+    color: var(--snk-white);
+    line-height: 1.5;
+}
+
+.snk-comment-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.snk-comment-action {
+    background: none;
+    border: none;
+    color: var(--snk-light);
+    font-size: 0.8rem;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: color 0.2s ease;
+}
+
+    .snk-comment-action:hover {
+        color: var(--snk-blue);
+    }
+
+.snk-new-comment {
+    padding: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.snk-comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.snk-comment-textarea {
+    background-color: var(--snk-dark-gray);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: var(--snk-white);
+    padding: 12px;
+    min-height: 80px;
+    font-family: inherit;
+    resize: vertical;
+    transition: all 0.2s ease;
+}
+
+    .snk-comment-textarea:focus {
+        outline: none;
+        border-color: var(--snk-blue);
+        box-shadow: 0 0 0 2px rgba(0, 121, 211, 0.2);
+    }
+
+.snk-comment-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.snk-comment-btn {
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.snk-comment-cancel {
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--snk-light);
+}
+
+    .snk-comment-cancel:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+        color: var(--snk-white);
+    }
+
+.snk-comment-submit {
+    background: linear-gradient(135deg, var(--snk-blue), var(--snk-blue-dark));
+    border: none;
+    color: var(--snk-white);
+}
+
+    .snk-comment-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 121, 211, 0.3);
+    }
+
+    .snk-comment-submit:active {
+        transform: translateY(0);
+    }
+
+/* Paylaş paneli stilleri */
+.snk-share-panel {
+    position: absolute;
+    right: 0;
+    background-color: var(--snk-dark);
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 10;
+    width: 250px;
+    display: none;
+    animation: snk-popup-in 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+    .snk-share-panel.active {
+        display: block;
+    }
+
+@keyframes snk-popup-in {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.snk-share-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.snk-share-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--snk-white);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+    .snk-share-title i {
+        color: var(--snk-blue);
+        font-size: 0.9em;
+    }
+
+.snk-share-close {
+    color: var(--snk-light);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 5px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+    .snk-share-close:hover {
+        color: var(--snk-white);
+        background-color: rgba(255, 255, 255, 0.1);
+        transform: rotate(90deg);
+    }
+
+.snk-share-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.snk-share-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: none;
+    border: none;
+    color: var(--snk-white);
+    font-size: 0.8rem;
+    cursor: pointer;
+    padding: 10px 5px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+    .snk-share-button i {
+        font-size: 1.5rem;
+        margin-bottom: 5px;
+    }
+
+    .snk-share-button:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        transform: translateY(-2px);
+    }
+
+.snk-share-twitter i {
+    color: #1DA1F2;
+}
+
+.snk-share-facebook i {
+    color: #4267B2;
+}
+
+.snk-share-linkedin i {
+    color: #0077B5;
+}
+
+.snk-share-whatsapp i {
+    color: #25D366;
+}
+
+.snk-share-telegram i {
+    color: #0088cc;
+}
+
+.snk-share-email i {
+    color: #D44638;
+}
+
+.snk-share-link {
+    grid-column: span 3;
+    margin-top: 10px;
+}
+
+.snk-share-link-input {
+    display: flex;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.snk-share-url {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px 0 0 6px;
+    font-size: 0.8rem;
+    background: var(--snk-dark-gray);
+}
+
+.snk-share-copy {
+    background-color: var(--snk-blue);
+    border: none;
+    color: var(--snk-white);
+    padding: 10px 15px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    font-size: 0.8rem;
+    border-radius: 0 6px 6px 0;
+}
+
+    .snk-share-copy:hover {
+        background-color: var(--snk-blue-dark);
+    }
+
+/* Mobil uyumluluğu */
+@media (max-width: 768px) {
+    .snk-post-comments {
+        margin-left: -12px;
+        margin-right: -12px;
+        border-radius: 0;
+    }
+
+    .snk-share-panel {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        border-radius: 12px 12px 0 0;
+        z-index: 1000;
+    }
+
+    .snk-share-buttons {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .snk-comment-form-actions {
+        flex-direction: column;
+    }
+
+    .snk-comment-btn {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .snk-comment-action {
+        padding: 5px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .snk-post-comments {
+        padding: 15px;
+    }
+
+    .snk-comments-list {
+        max-height: 350px;
+    }
+
+    .snk-share-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .snk-share-link {
+        grid-column: span 1;
+    }
+}
+
+/* Yorum Yanıtlama Stilleri */
+.snk-reply-form-container {
+    margin-top: 10px;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.snk-reply-form {
+    background: #f0f0f0;
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+.snk-reply-textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    resize: vertical;
+    font-family: inherit;
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+    transition: border-color 0.3s;
+}
+
+    .snk-reply-textarea:focus {
+        outline: none;
+        border-color: #3498db;
+        box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+    }
+
+.snk-reply-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.snk-reply-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.snk-reply-submit {
+    background: linear-gradient(135deg, #3498db, #1abc9c);
+    color: white;
+}
+
+    .snk-reply-submit:hover {
+        background: linear-gradient(135deg, #2980b9, #16a085);
+        transform: translateY(-2px);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    }
+
+.snk-reply-cancel {
+    background: #f1f1f1;
+    color: #7f8c8d;
+}
+
+    .snk-reply-cancel:hover {
+        background: #e0e0e0;
+        color: #34495e;
+    }
+
+.snk-reply {
+    background: #f9f9f9;
+    border-left: 4px solid #1abc9c; /* Yanıtlar için farklı renk */
+    margin-left: 15px; /* Girintileme */
+    border-radius: 5px;
+    padding: 12px;
+    margin-bottom: 15px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+}
+
+    .snk-reply::before {
+        content: '';
+        position: absolute;
+        top: -15px;
+        left: -15px;
+        width: 15px;
+        height: 15px;
+        border-left: 2px solid #e0e0e0;
+        border-bottom: 2px solid #e0e0e0;
+        border-bottom-left-radius: 8px;
+    }
+
+/* Mobil Uyumluluk İçin Ek Düzenlemeler */
+@media (max-width: 768px) {
+    .snk-reply-form-actions {
+        flex-direction: column;
+    }
+
+    .snk-reply-btn {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .snk-reply {
+        margin-left: 10px;
+    }
+
+        .snk-reply::before {
+            left: -10px;
+            width: 8px;
+        }
+}
+
+/* Blog Yazısı Oluşturma Popup Stilleri */
+.snk-create-post-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+    .snk-create-post-popup.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+.snk-create-post-container {
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.snk-create-post-popup.active .snk-create-post-container {
+    transform: scale(1);
+}
+
+.snk-create-post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #3498db, #1abc9c);
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+    .snk-create-post-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: rgba(255, 255, 255, 0.1);
+        transform: rotate(45deg);
+        z-index: 1;
+        transition: all 0.6s ease;
+        opacity: 0;
+    }
+
+    .snk-create-post-header:hover::before {
+        opacity: 1;
+        transform: rotate(45deg) translate(10%, 10%);
+    }
+
+.snk-create-post-title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+    .snk-create-post-title i {
+        margin-right: 10px;
+    }
+
+.snk-create-post-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+    .snk-create-post-close:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: rotate(90deg);
+    }
+
+.snk-create-post-form {
+    padding: 20px;
+    overflow-y: auto;
+    max-height: calc(90vh - 80px);
+}
+
+    .snk-create-post-form::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .snk-create-post-form::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+
+    .snk-create-post-form::-webkit-scrollbar-thumb {
+        background: linear-gradient(to bottom, #3498db, #1abc9c);
+        border-radius: 10px;
+    }
+
+.snk-form-group {
+    margin-bottom: 20px;
+}
+
+    .snk-form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #333;
+    }
+
+.snk-form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.07);
+    color: #333;
+}
+
+    .snk-form-control:focus {
+        outline: none;
+        border-color: #3498db;
+        box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+    }
+
+    .snk-form-control::placeholder {
+        color: rgba(215, 218, 220, 0.5);
+    }
+
+textarea.snk-form-control {
+    resize: vertical;
+}
+
+.snk-tags-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.snk-tag {
+    background: linear-gradient(135deg, #3498db, #1abc9c);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+    .snk-tag:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+.snk-image-upload {
+    position: relative;
+    margin-top: 10px;
+}
+
+.snk-image-input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.snk-image-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 20px;
+    border: 2px dashed #ddd;
+    border-radius: 10px;
+    background: #f9f9f9;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .snk-image-label:hover {
+        border-color: #3498db;
+        background: #f0f7fa;
+    }
+
+    .snk-image-label i {
+        font-size: 2rem;
+        color: #3498db;
+        margin-bottom: 10px;
+    }
+
+.snk-image-preview {
+    margin-top: 15px;
+    position: relative;
+}
+
+    .snk-image-preview img {
+        max-width: 100%;
+        border-radius: 8px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+.snk-remove-image {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .snk-remove-image:hover {
+        background: #e74c3c;
+        color: white;
+        transform: rotate(90deg);
+    }
+
+.snk-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.snk-form-button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.snk-submit-button {
+    background: linear-gradient(135deg, #3498db, #1abc9c);
+    color: white;
+}
+
+    .snk-submit-button:hover {
+        background: linear-gradient(135deg, #2980b9, #16a085);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .snk-submit-button:active {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .snk-submit-button::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: rgba(255, 255, 255, 0.1);
+        transform: rotate(45deg);
+        z-index: -1;
+        transition: all 0.6s ease;
+        opacity: 0;
+    }
+
+    .snk-submit-button:hover::before {
+        opacity: 1;
+        transform: rotate(45deg) translate(10%, 10%);
+    }
+
+.snk-cancel-button {
+    background: #f1f1f1;
+    color: #666;
+}
+
+    .snk-cancel-button:hover {
+        background: #e0e0e0;
+    }
+
+/* Mobil Uyumluluk */
+@media (max-width: 768px) {
+    .snk-create-post-container {
+        width: 95%;
+        max-height: 95vh;
+    }
+
+    .snk-create-post-header {
+        padding: 15px;
+    }
+
+    .snk-create-post-title {
+        font-size: 1.2rem;
+    }
+
+    .snk-create-post-form {
+        padding: 15px;
+        max-height: calc(95vh - 60px);
+    }
+
+    .snk-form-control {
+        padding: 10px;
+    }
+
+    .snk-form-actions {
+        flex-direction: column-reverse;
+        gap: 10px;
+    }
+
+    .snk-form-button {
+        width: 100%;
+        padding: 12px;
+    }
+
+    .snk-image-label {
+        padding: 20px 15px;
+    }
+
+        .snk-image-label i {
+            font-size: 1.5rem;
+        }
+}
+
+@media (max-width: 480px) {
+    .snk-create-post-header {
+        padding: 12px;
+    }
+
+    .snk-create-post-title {
+        font-size: 1rem;
+    }
+
+    .snk-create-post-form {
+        padding: 12px;
+    }
+
+    .snk-form-group {
+        margin-bottom: 15px;
+    }
+
+        .snk-form-group label {
+            font-size: 0.9rem;
+        }
+}
+
+/* Mobil uyumluluk için ek düzenlemeler */
+@media (max-width: 480px) {
+    .snk-popup-container {
+        width: 95%;
+    }
+}
+
+/* Oturum Açma ve Kaydolma Formları */
+.snk-auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 10px 0;
+}
+
+.snk-form-row {
+    display: flex;
+    gap: 15px;
+}
+
+@media (max-width: 576px) {
+    .snk-form-row {
+        flex-direction: column;
+        gap: 18px;
+    }
+}
+
+.snk-form-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+}
+
+    .snk-form-group label {
+        margin-bottom: 6px;
+        font-size: 14px;
+        color: var(--snk-dark-gray);
+        font-weight: 500;
+    }
+
+.snk-form-input {
+    padding: 12px 15px;
+    border: 1px solid #343536;
+    border-radius: 4px;
+    background-color: #1A1A1B;
+    color: var(--snk-white);
+    font-size: 15px;
+    width: 100%;
+    transition: all 0.2s ease;
+}
+
+    .snk-form-input:focus {
+        outline: none;
+        border-color: var(--snk-blue);
+        box-shadow: 0 0 0 2px rgba(0, 121, 211, 0.2);
+    }
+
+    .snk-form-input::placeholder {
+        color: #818384;
+    }
+
+.snk-password-container {
+    position: relative;
+    width: 100%;
+}
+
+.snk-password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #818384;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 5px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+    .snk-password-toggle:hover {
+        color: var(--snk-white);
+    }
+
+.snk-form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+}
+
+.snk-remember-me {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--snk-dark-gray);
+}
+
+.snk-forgot-password {
+    color: var(--snk-blue);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+    .snk-forgot-password:hover {
+        text-decoration: underline;
+        color: var(--snk-light-blue);
+    }
+
+.snk-auth-submit {
+    background: var(--snk-blue);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+    .snk-auth-submit:hover {
+        background: var(--snk-dark-blue);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .snk-auth-submit:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    }
+
+.snk-auth-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 5px 0;
+    color: #818384;
+    font-size: 13px;
+}
+
+    .snk-auth-divider::before,
+    .snk-auth-divider::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid #343536;
+    }
+
+    .snk-auth-divider span {
+        padding: 0 10px;
+    }
+
+.snk-social-login {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.snk-social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #343536;
+    background: #1A1A1B;
+    color: var(--snk-white);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    gap: 10px;
+}
+
+.snk-google-btn {
+    color: #EA4335;
+}
+
+.snk-facebook-btn {
+    color: #4267B2;
+}
+
+.snk-social-btn:hover {
+    background: #272729;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.snk-auth-toggle {
+    text-align: center;
+    font-size: 13px;
+    color: var(--snk-dark-gray);
+}
+
+    .snk-auth-toggle a {
+        color: var(--snk-blue);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.2s ease;
+    }
+
+        .snk-auth-toggle a:hover {
+            text-decoration: underline;
+            color: var(--snk-light-blue);
+        }
+
+.snk-terms-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--snk-dark-gray);
+}
+
+    .snk-terms-container input[type="checkbox"] {
+        margin-top: 3px;
+    }
+
+.snk-terms-link {
+    color: var(--snk-blue);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+    .snk-terms-link:hover {
+        text-decoration: underline;
+        color: var(--snk-light-blue);
+    }
+
+/* Uyarı Popup Stilleri */
+.snk-alert-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+    .snk-alert-popup.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+.snk-alert-container {
+    background: #2A2A2D;
+    width: 400px;
+    max-width: 90%;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 1px solid var(--snk-border-color);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.snk-alert-popup.active .snk-alert-container {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.snk-alert-icon {
+    font-size: 40px;
+    color: #FF7043;
+    margin-bottom: 15px;
+}
+
+.snk-alert-content h3 {
+    color: var(--snk-white);
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.snk-alert-content p {
+    color: var(--snk-gray);
+    font-size: 15px;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.snk-alert-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.snk-alert-button {
+    padding: 10px 20px;
+    border-radius: 50px;
+    border: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 120px;
+}
+
+.snk-login-action {
+    background: linear-gradient(135deg, var(--snk-blue), var(--snk-dark-blue));
+    color: white;
+}
+
+    .snk-login-action:hover {
+        background: linear-gradient(135deg, var(--snk-dark-blue), var(--snk-blue));
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 97, 169, 0.4);
+    }
+
+.snk-alert-close {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--snk-white);
+}
+
+    .snk-alert-close:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+/* Modern Form Stilleri */
+.snk-auth-form {
+    width: 100%;
+}
+
+.snk-form-group {
+    margin-bottom: 20px;
+}
+
+    .snk-form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: var(--text-color);
+    }
+
+.snk-form-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.07);
+    color: var(--text-color);
+}
+
+    .snk-form-input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    }
+
+    .snk-form-input::placeholder {
+        color: rgba(215, 218, 220, 0.5);
+    }
+
+.snk-password-container {
+    position: relative;
+}
+
+.snk-password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--snk-gray);
+    cursor: pointer;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+    .snk-password-toggle:hover {
+        color: var(--snk-white);
+    }
+
+.snk-form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.snk-remember-me {
+    display: flex;
+    align-items: center;
+}
+
+    .snk-remember-me input[type="checkbox"] {
+        margin-right: 8px;
+    }
+
+.snk-forgot-password {
+    color: var(--snk-blue);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+    .snk-forgot-password:hover {
+        color: var(--snk-light-blue);
+        text-decoration: underline;
+    }
+
+.snk-auth-submit {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, var(--snk-blue), var(--snk-dark-blue));
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 15px;
+}
+
+    .snk-auth-submit:hover {
+        background: linear-gradient(135deg, var(--snk-dark-blue), var(--snk-blue));
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 97, 169, 0.3);
+    }
+
+.snk-auth-divider {
+    position: relative;
+    text-align: center;
+    margin: 25px 0;
+}
+
+    .snk-auth-divider::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 45%;
+        height: 1px;
+        background-color: var(--snk-border-color);
+    }
+
+    .snk-auth-divider::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 50%;
+        width: 45%;
+        height: 1px;
+        background-color: var(--snk-border-color);
+    }
+
+    .snk-auth-divider span {
+        display: inline-block;
+        padding: 0 10px;
+        background-color: #2A2A2D;
+        position: relative;
+        z-index: 1;
+        color: var(--snk-gray);
+        font-size: 14px;
+    }
+
+.snk-social-login {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.snk-social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    gap: 10px;
+}
+
+.snk-google-btn {
+    background-color: #DB4437;
+}
+
+    .snk-google-btn:hover {
+        background-color: #c53929;
+    }
+
+.snk-facebook-btn {
+    background-color: #4267B2;
+}
+
+    .snk-facebook-btn:hover {
+        background-color: #365899;
+    }
+
+.snk-auth-toggle {
+    text-align: center;
+    font-size: 14px;
+    color: var(--snk-gray);
+}
+
+    .snk-auth-toggle a {
+        color: var(--snk-blue);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+
+        .snk-auth-toggle a:hover {
+            color: var(--snk-light-blue);
+            text-decoration: underline;
+        }
+
+.snk-login-form-container {
+    width: 100%;
+    padding: 0 10px;
+}
+
+/* Blog oluşturma popup stilleri */
+.blog-create-popup {
+    max-width: 800px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.snk-blog-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 10px 0;
+}
+
+    .snk-blog-form .snk-form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .snk-blog-form label {
+        font-weight: 500;
+        color: var(--text-color);
+    }
+
+    .snk-blog-form .snk-form-control {
+        padding: 12px;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        font-size: 16px;
+        transition: border-color 0.3s, box-shadow 0.3s;
+        background-color: var(--bg-color-alt);
+        color: var(--text-color);
+    }
+
+        .snk-blog-form .snk-form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+            outline: none;
+        }
+
+    .snk-blog-form textarea.snk-form-control {
+        resize: vertical;
+        min-height: 60px;
+    }
+
+    .snk-blog-form #blogContent {
+        min-height: 150px;
+    }
+
+.snk-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.snk-form-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.snk-cancel-btn {
+    background-color: var(--light-gray);
+    color: var(--text-color);
+}
+
+    .snk-cancel-btn:hover {
+        background-color: var(--medium-gray);
+    }
+
+.snk-submit-btn {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+    .snk-submit-btn:hover {
+        background-color: var(--primary-color-dark);
+    }
+
+/* Blog post kartları için stil */
+.snk-post-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-color-alt);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+    height: 100%;
+}
+
+    .snk-post-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+.snk-post-image {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+}
+
+    .snk-post-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+    }
+
+.snk-post-card:hover .snk-post-image img {
+    transform: scale(1.05);
+}
+
+.snk-post-category {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.snk-post-content {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.snk-post-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--text-color);
+    line-height: 1.3;
+}
+
+.snk-post-summary {
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--text-color-light);
+    margin-bottom: 15px;
+    flex-grow: 1;
+}
+
+.snk-post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 15px;
+    font-size: 13px;
+    color: var(--text-color-lighter);
+}
+
+    .snk-post-meta i {
+        margin-right: 5px;
+        color: var(--primary-color);
+    }
+
+.snk-post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.snk-tag {
+    background-color: var(--light-gray);
+    color: var(--text-color-light);
+    padding: 3px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    transition: background-color 0.3s;
+}
+
+    .snk-tag:hover {
+        background-color: var(--primary-color-light);
+        color: var(--text-color);
+    }
+
+.snk-read-more-btn {
+    align-self: flex-start;
+    padding: 8px 20px;
+    background-color: var(--primary-color-light);
+    color: var(--primary-color-dark);
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+    .snk-read-more-btn:hover {
+        background-color: var(--primary-color);
+        color: white;
+    }
+
+/* Modernleştirilmiş Blog Kartları - Kullanıcı Dostu Tasarım */
+.snk-user-posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+    width: 100%;
+}
+
+.snk-user-post-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    height: 100%;
+    position: relative;
+}
+
+    .snk-user-post-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+.snk-user-post-image {
+    position: relative;
+    overflow: hidden;
+    height: 180px;
+}
+
+    .snk-user-post-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        transition: transform 0.5s ease;
+    }
+
+.snk-user-post-card:hover .snk-user-post-image img {
+    transform: scale(1.05);
+}
+
+.snk-user-post-category {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    background: linear-gradient(135deg, #0055FF, #0044CC);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 3px 10px rgba(0, 85, 255, 0.3);
+    z-index: 2;
+}
+
+.snk-user-post-content {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.snk-user-post-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #222;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.snk-user-post-excerpt {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.snk-user-post-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    font-size: 0.85rem;
+    color: #777;
+}
+
+    .snk-user-post-meta span {
+        display: flex;
+        align-items: center;
+    }
+
+    .snk-user-post-meta i {
+        margin-right: 6px;
+        font-size: 14px;
+    }
+
+.snk-user-post-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 15px;
+    background: #f9f9f9;
+    border-top: 1px solid #eee;
+}
+
+.snk-post-action-btn {
+    background: transparent;
+    border: none;
+    color: #555;
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+}
+
+    .snk-post-action-btn:hover {
+        background: rgba(0, 0, 0, 0.05);
+        color: #0055FF;
+    }
+
+    .snk-post-action-btn.liked {
+        color: #ff3852;
+    }
+
+    .snk-post-action-btn.delete-btn {
+        color: #ff3030;
+    }
+
+        .snk-post-action-btn.delete-btn:hover {
+            background: rgba(255, 48, 48, 0.1);
+            color: #ff3030;
+        }
+
+    .snk-post-action-btn i {
+        margin-right: 5px;
+        font-size: 14px;
+    }
+
+/* Blog kartları boş durumu */
+.snk-no-posts {
+    width: 100%;
+    text-align: center;
+    padding: 40px 20px;
+    background: #f9f9f9;
+    border-radius: 12px;
+    border: 1px dashed #ddd;
+}
+
+    .snk-no-posts i {
+        font-size: 3rem;
+        color: #ccc;
+        margin-bottom: 15px;
+    }
+
+    .snk-no-posts p {
+        font-size: 1.1rem;
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+.snk-action-btn {
+    display: inline-flex;
+    align-items: center;
+    background: #0055FF;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 85, 255, 0.3);
+}
+
+    .snk-action-btn:hover {
+        background: #0044CC;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0, 85, 255, 0.4);
+    }
+
+    .snk-action-btn i {
+        margin-right: 8px;
+    }
+
+/* Silme onay dialog */
+.snk-delete-confirm {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+    .snk-delete-confirm.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+.snk-delete-dialog {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.snk-delete-confirm.active .snk-delete-dialog {
+    transform: scale(1);
+}
+
+.snk-delete-dialog i {
+    font-size: 3rem;
+    color: #ff3030;
+    margin-bottom: 15px;
+}
+
+.snk-delete-dialog h3 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.snk-delete-dialog p {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.snk-delete-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.snk-delete-btn {
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.snk-cancel-delete {
+    background: #f1f1f1;
+    color: #666;
+}
+
+    .snk-cancel-delete:hover {
+        background: #e5e5e5;
+    }
+
+.snk-confirm-delete {
+    background: #ff3030;
+    color: white;
+    box-shadow: 0 4px 12px rgba(255, 48, 48, 0.3);
+}
+
+    .snk-confirm-delete:hover {
+        background: #e52020;
+    }
+
+/* Blog Yazısı Bildirimleri */
+.snk-notification {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 15px 25px 15px 20px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    max-width: 350px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 1100;
+}
+
+    .snk-notification.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .snk-notification i {
+        font-size: 18px;
+    }
+
+    .snk-notification.success {
+        border-left: 4px solid var(--success-color);
+    }
+
+        .snk-notification.success i {
+            color: var(--success-color);
+        }
+
+    .snk-notification.error {
+        border-left: 4px solid var(--danger-color);
+    }
+
+        .snk-notification.error i {
+            color: var(--danger-color);
+        }
+
+    .snk-notification.warning {
+        border-left: 4px solid var(--warning-color);
+    }
+
+        .snk-notification.warning i {
+            color: var(--warning-color);
+        }
+
+    .snk-notification.info {
+        border-left: 4px solid var(--info-color);
+    }
+
+        .snk-notification.info i {
+            color: var(--info-color);
+        }
+
+/* Blog Kartları - Modern Tasarım */
+.snk-blog-card, .snk-user-post-card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 24px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+    .snk-blog-card:hover, .snk-user-post-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+.snk-blog-card-image, .snk-user-post-image {
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    position: relative;
+}
+
+    .snk-blog-card-image img, .snk-user-post-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        transition: transform 0.5s ease;
+    }
+
+.snk-blog-card:hover .snk-blog-card-image img,
+.snk-user-post-card:hover .snk-user-post-image img {
+    transform: scale(1.05);
+}
+
+.snk-blog-card-content, .snk-user-post-content {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.snk-blog-card-title, .snk-user-post-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--text-color);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.snk-blog-card-excerpt, .snk-user-post-excerpt {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.snk-blog-card-meta, .snk-user-post-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.snk-blog-card-author, .snk-user-post-author {
+    display: flex;
+    align-items: center;
+}
+
+.snk-blog-card-author-avatar, .snk-user-post-author-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+    .snk-blog-card-author-avatar img, .snk-user-post-author-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.snk-blog-card-date, .snk-user-post-date,
+.snk-blog-card-views, .snk-user-post-views {
+    display: flex;
+    align-items: center;
+}
+
+    .snk-blog-card-date i, .snk-user-post-date i,
+    .snk-blog-card-views i, .snk-user-post-views i {
+        margin-right: 5px;
+        font-size: 14px;
+    }
+
+.snk-blog-card-categories, .snk-user-post-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.snk-blog-card-category, .snk-user-post-category {
+    background-color: var(--primary-color-light);
+    color: var(--primary-color);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+    .snk-blog-card-category:hover, .snk-user-post-category:hover {
+        background-color: var(--primary-color);
+        color: #fff;
+    }
+
+.snk-blog-card-footer, .snk-user-post-footer {
+    border-top: 1px solid var(--border-color);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.snk-blog-card-actions, .snk-user-post-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.snk-post-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+    .snk-post-action-btn:hover {
+        background-color: var(--bg-light);
+        color: var(--primary-color);
+    }
+
+    .snk-post-action-btn.active, .snk-post-action-btn.liked {
+        color: var(--primary-color);
+    }
+
+    .snk-post-action-btn.delete-btn {
+        color: var(--danger-color);
+    }
+
+        .snk-post-action-btn.delete-btn:hover {
+            background-color: rgba(var(--danger-rgb), 0.1);
+        }
+
+/* Yorum popup stileri */
+.snk-comments-container {
+    display: flex;
+    flex-direction: column;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.snk-comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding: 16px 0;
+}
+
+.snk-comment {
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    background-color: var(--bg-light);
+    border-radius: 10px;
+}
+
+.snk-comment-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+    .snk-comment-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.snk-comment-content {
+    flex-grow: 1;
+}
+
+.snk-comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+    .snk-comment-header h4 {
+        font-size: 15px;
+        font-weight: 600;
+        margin: 0;
+        color: var(--text-color);
+    }
+
+    .snk-comment-header span {
+        font-size: 12px;
+        color: var(--text-secondary);
+    }
+
+.snk-comment-text {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-color);
+}
+
+.snk-comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+    .snk-comment-form textarea {
+        width: 100%;
+        padding: 15px;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        resize: vertical;
+        min-height: 100px;
+        font-size: 14px;
+        font-family: inherit;
+        background-color: var(--input-bg);
+        color: var(--text-color);
+        transition: border-color 0.2s ease;
+    }
+
+        .snk-comment-form textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+.snk-comment-submit {
+    padding: 12px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    align-self: flex-end;
+}
+
+    .snk-comment-submit:hover {
+        background-color: var(--primary-color-dark);
+    }
+
+/* Paylaşım popup stileri */
+.snk-share-popup .snk-popup-container {
+    max-width: 400px;
+}
+
+.snk-share-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.snk-share-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    background-color: var(--bg-light);
+    color: var(--text-color);
+}
+
+.snk-facebook-share {
+    background-color: #3b5998;
+    color: white;
+}
+
+.snk-twitter-share {
+    background-color: #1da1f2;
+    color: white;
+}
+
+.snk-whatsapp-share {
+    background-color: #25d366;
+    color: white;
+}
+
+.snk-copy-link {
+    border: 1px solid var(--border-color);
+}
+
+.snk-share-option:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Onay popup stileri */
+.snk-confirm-popup .snk-popup-container {
+    max-width: 460px;
+}
+
+.snk-confirm-message {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    text-align: center;
+    color: var(--text-color);
+}
+
+.snk-confirm-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.snk-cancel-btn, .snk-confirm-btn {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    border: none;
+}
+
+.snk-cancel-btn {
+    background-color: var(--bg-light);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.snk-confirm-btn {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+.snk-cancel-btn:hover {
+    background-color: var(--border-color);
+}
+
+.snk-confirm-btn:hover {
+    background-color: var(--danger-color-dark);
+}
+
+/* Bildirim Stilleri */
+.snk-notification {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 15px 25px 15px 20px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    max-width: 350px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 1100;
+}
+
+    .snk-notification.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .snk-notification i {
+        font-size: 18px;
+    }
+
+    .snk-notification.success {
+        border-left: 4px solid var(--success-color);
+    }
+
+        .snk-notification.success i {
+            color: var(--success-color);
+        }
+
+    .snk-notification.error {
+        border-left: 4px solid var(--danger-color);
+    }
+
+        .snk-notification.error i {
+            color: var(--danger-color);
+        }
+
+    .snk-notification.warning {
+        border-left: 4px solid var(--warning-color);
+    }
+
+        .snk-notification.warning i {
+            color: var(--warning-color);
+        }
+
+    .snk-notification.info {
+        border-left: 4px solid var(--info-color);
+    }
+
+        .snk-notification.info i {
+            color: var(--info-color);
+        }
+
+/* Blog yazısı onay bildirimi için stiller */
+.snk-notification-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+    .snk-notification-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+.snk-notification-container {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 30px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.snk-notification-overlay.active .snk-notification-container {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.snk-notification-icon {
+    font-size: 48px;
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+.snk-notification-container h3 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.snk-notification-container p {
+    color: #666;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.snk-notification-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+    .snk-notification-button:hover {
+        background-color: #388E3C;
+    }
+
+/* Dark mode uyumluluğu */
+body.dark-mode .snk-notification-container {
+    background-color: #333;
+    color: #eee;
+}
+
+    body.dark-mode .snk-notification-container h3 {
+        color: #fff;
+    }
+
+    body.dark-mode .snk-notification-container p {
+        color: #ddd;
+    }
