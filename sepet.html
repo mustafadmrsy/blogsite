@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sepetim - May Market</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-auto d-lg-none">
+                    <button class="btn btn-link text-dark mobile-sidebar-toggle" id="mobile-sidebar-toggle" style="display: none;">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+                <div class="col-auto">
+                    <a class="navbar-brand" href="mainpage.html">
+                        <i class="fas fa-ship"></i>May Market
+                    </a>
+                </div>
+                <div class="col">
+                    <form class="search-form mx-auto" onsubmit="handleSearch(event)">
+                        <input class="form-control" type="search" placeholder="Ne aramıştınız?" id="searchInput">
+                        <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+                <div class="col-auto">
+                    <ul class="nav header-icons">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showMessage('Favoriler özelliği yakında aktif olacaktır!')">
+                                <i class="fas fa-heart"></i>
+                                <span class="d-none d-md-inline ms-1">Favoriler</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="sepet.html">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span class="badge bg-danger badge-notification">3</span>
+                                <span class="d-none d-md-inline ms-1">Sepetim</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showLoginModal()">
+                                <i class="fas fa-user"></i>
+                                <span class="d-none d-md-inline ms-1">Giriş Yap</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h5 class="mb-0">Kategoriler</h5>
+                <button class="sidebar-toggle" id="sidebar-toggle" title="Menüyü Daralt/Genişlet">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            </div>
+            <ul class="sidebar-menu">
+                <li>
+                    <a href="mainpage.html">
+                        <i class="fas fa-home"></i>
+                        <span class="menu-text">Anasayfa</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="showCategoryMessage('Deniz Motorları')">
+                        <i class="fas fa-anchor"></i>
+                        <span class="menu-text">Deniz Motorları</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="showCategoryMessage('Navigasyon Ekipmanları')">
+                        <i class="fas fa-compass"></i>
+                        <span class="menu-text">Navigasyon Ekipmanları</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="showCategoryMessage('Güvenlik Malzemeleri')">
+                        <i class="fas fa-life-ring"></i>
+                        <span class="menu-text">Güvenlik Malzemeleri</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="showCategoryMessage('Bakım Ürünleri')">
+                        <i class="fas fa-tools"></i>
+                        <span class="menu-text">Bakım Ürünleri</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="showCategoryMessage('Elektrik & Aydınlatma')">
+                        <i class="fas fa-lightbulb"></i>
+                        <span class="menu-text">Elektrik & Aydınlatma</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="showCategoryMessage('Güverte Ekipmanları')">
+                        <i class="fas fa-dharmachakra"></i>
+                        <span class="menu-text">Güverte Ekipmanları</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="showCategoryMessage('Kampanyalar')">
+                        <i class="fas fa-tags"></i>
+                        <span class="menu-text">Kampanyalar</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="content-area" id="content-area">
+            <div class="container py-4">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="mainpage.html">Anasayfa</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Sepetim</li>
+                    </ol>
+                </nav>
+
+                <h2 class="mb-4">Alışveriş Sepetim</h2>
+                
+                <div class="row">
+                    <div class="col-lg-8">
+                        <!-- Sepet Ürünleri -->
+                        <div class="cart-item">
+                            <div class="row align-items-center">
+                                <div class="col-md-2">
+                                    <img src="assets/css/img/indir.jpeg" alt="Mercury F50 Dıştan Takma Motor" class="cart-item-img">
+                                </div>
+                                <div class="col-md-5">
+                                    <h5 class="mb-1">Mercury F50 Dıştan Takma Motor</h5>
+                                    <p class="text-muted mb-0">50HP 4 Zamanlı Dıştan Takma Motor</p>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="quantity-control">
+                                        <button onclick="updateQuantity(this, -1)">-</button>
+                                        <input type="text" value="1" readonly>
+                                        <button onclick="updateQuantity(this, 1)">+</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 text-end">
+                                    <span class="product-price">773.842 TL</span>
+                                </div>
+                                <div class="col-md-1 text-end">
+                                    <button class="btn btn-sm btn-outline-danger" onclick="removeItem(this)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cart-item">
+                            <div class="row align-items-center">
+                                <div class="col-md-2">
+                                    <img src="assets/css/img/indir (1).jpeg" alt="Deluxe Otomatik Can Yeleği" class="cart-item-img">
+                                </div>
+                                <div class="col-md-5">
+                                    <h5 class="mb-1">Deluxe Otomatik Can Yeleği</h5>
+                                    <p class="text-muted mb-0">165N Şişebilir Can Yeleği</p>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="quantity-control">
+                                        <button onclick="updateQuantity(this, -1)">-</button>
+                                        <input type="text" value="1" readonly>
+                                        <button onclick="updateQuantity(this, 1)">+</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 text-end">
+                                    <span class="product-price">3.400 TL</span>
+                                </div>
+                                <div class="col-md-1 text-end">
+                                    <button class="btn btn-sm btn-outline-danger" onclick="removeItem(this)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cart-item">
+                            <div class="row align-items-center">
+                                <div class="col-md-2">
+                                    <img src="assets/css/img/indir (2).jpeg" alt="Premium Tekne Temizleme Seti" class="cart-item-img">
+                                </div>
+                                <div class="col-md-5">
+                                    <h5 class="mb-1">Premium Tekne Temizleme Seti</h5>
+                                    <p class="text-muted mb-0">Şampuan, Wax ve Uygulama Ürünleri</p>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="quantity-control">
+                                        <button onclick="updateQuantity(this, -1)">-</button>
+                                        <input type="text" value="1" readonly>
+                                        <button onclick="updateQuantity(this, 1)">+</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 text-end">
+                                    <span class="product-price">2.350 TL</span>
+                                </div>
+                                <div class="col-md-1 text-end">
+                                    <button class="btn btn-sm btn-outline-danger" onclick="removeItem(this)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-end mt-3">
+                            <a href="mainpage.html" class="btn btn-outline-primary">
+                                <i class="fas fa-arrow-left me-2"></i>Alışverişe Devam Et
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 mt-4 mt-lg-0">
+                        <!-- Sepet Özeti -->
+                        <div class="cart-total">
+                            <h4 class="mb-3">Sipariş Özeti</h4>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Ürün Toplamı (3 Ürün)</span>
+                                <span>779.592 TL</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>KDV</span>
+                                <span>140.326 TL</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Kargo</span>
+                                <span>Ücretsiz</span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between mb-3">
+                                <strong>Toplam</strong>
+                                <strong class="product-price">919.918 TL</strong>
+                            </div>
+                            <button class="btn btn-primary w-100" onclick="window.location.href='odeme.html'">
+                                Ödeme Yap
+                            </button>
+                            <div class="mt-3 text-center">
+                                <div class="d-flex justify-content-center gap-2">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png" alt="Visa" style="height: 25px; width: auto;">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png" alt="Mastercard" style="height: 25px; width: auto;">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/American_Express_logo_%282018%29.svg/200px-American_Express_logo_%282018%29.svg.png" alt="American Express" style="height: 25px; width: auto;">
+                                </div>
+                                <small class="text-muted mt-2 d-block">Güvenli ödeme seçenekleri</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <h5>Kurumsal</h5>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="showMessage('Hakkımızda sayfası yakında!')">Hakkımızda</a></li>
+                        <li><a href="#" onclick="showContactInfo()">İletişim</a></li>
+                        <li><a href="#" onclick="showMessage('Mağazalarımız yakında!')">Mağazalarımız</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Müşteri Hizmetleri</h5>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="showMessage('Sipariş takip sistemi yakında!')">Sipariş Takibi</a></li>
+                        <li><a href="#" onclick="showMessage('İade ve değişim sayfası yakında!')">İade ve Değişim</a></li>
+                        <li><a href="#" onclick="showMessage('Gizlilik politikası sayfası yakında!')">Gizlilik Politikası</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Ödeme & Teslimat</h5>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="showMessage('Ödeme seçenekleri sayfası yakında!')">Ödeme Seçenekleri</a></li>
+                        <li><a href="#" onclick="showMessage('Teslimat bilgileri sayfası yakında!')">Teslimat Bilgileri</a></li>
+                        <li><a href="#" onclick="showMessage('Kargo takip sayfası yakında!')">Kargo Takip</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="newsletter-form">
+                        <h5>Bültenimize Katılın</h5>
+                        <p>En güncel kampanya ve indirimlerden haberdar olun.</p>
+                        <form id="newsletter-form" onsubmit="handleNewsletter(event)">
+                            <div class="input-group">
+                                <input type="email" class="form-control" placeholder="E-posta adresiniz" required>
+                                <button class="btn btn-primary" type="submit">Abone Ol</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="mb-md-0">© 2023 May Market. Tüm hakları saklıdır.</p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <div class="d-inline-flex gap-3">
+                            <a href="#" class="text-white"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="text-white"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Giriş Yap</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label class="form-label">E-posta</label>
+                            <input type="email" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Şifre</label>
+                            <input type="password" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Giriş Yap</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Mesaj gösterme fonksiyonu
+        function showMessage(message) {
+            alert(message);
+        }
+
+        // Kategori mesajı gösterme
+        function showCategoryMessage(category) {
+            alert(category + ' kategorisi yakında aktif olacaktır!');
+        }
+
+        // Login Modal gösterme
+        function showLoginModal() {
+            var myModal = new bootstrap.Modal(document.getElementById('loginModal'));
+            myModal.show();
+        }
+
+        // İletişim bilgilerini gösterme
+        function showContactInfo() {
+            alert('İletişim Bilgileri:\nTelefon: +90 (555) 123 45 67\nE-posta: info@maymarket.com\nAdres: Deniz Mahallesi, Marina Caddesi No:123\nAntalya/Türkiye');
+        }
+
+        // Arama işlemi
+        function handleSearch(e) {
+            e.preventDefault();
+            var searchTerm = document.getElementById('searchInput').value;
+            alert('Arama yapıldı: ' + searchTerm + '\nArama özelliği yakında aktif olacaktır!');
+        }
+
+        // Bülten kaydı
+        function handleNewsletter(e) {
+            e.preventDefault();
+            alert('Bülten kaydınız alınmıştır. Teşekkür ederiz!');
+            e.target.reset();
+        }
+
+        // Login formu
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Bu bir demo sayfasıdır. Giriş işlemi simüle edilmiştir.');
+            var myModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
+            myModal.hide();
+        });
+
+        // Miktar güncelleme
+        function updateQuantity(button, change) {
+            var input = button.parentNode.querySelector('input');
+            var quantity = parseInt(input.value) + change;
+            
+            if (quantity < 1) quantity = 1;
+            if (quantity > 10) quantity = 10;
+            
+            input.value = quantity;
+        }
+
+        // Ürün silme
+        function removeItem(button) {
+            if (confirm('Bu ürünü sepetinizden çıkarmak istediğinize emin misiniz?')) {
+                button.closest('.cart-item').remove();
+                
+                // Eğer sepet boşaldıysa mesaj göster
+                if (document.querySelectorAll('.cart-item').length === 0) {
+                    document.querySelector('.col-lg-8').innerHTML = '<div class="alert alert-info">Sepetinizde ürün bulunmamaktadır.</div>';
+                    document.querySelector('.col-lg-4').style.display = 'none';
+                }
+            }
+        }
+
+        // Sidebar toggle
+        document.getElementById('sidebar-toggle').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('collapsed');
+            
+            // İkon değişimi
+            const icon = this.querySelector('i');
+            if (sidebar.classList.contains('collapsed')) {
+                icon.classList.remove('fa-chevron-left');
+                icon.classList.add('fa-chevron-right');
+            } else {
+                icon.classList.remove('fa-chevron-right');
+                icon.classList.add('fa-chevron-left');
+            }
+            
+            document.getElementById('content-area').style.marginLeft = sidebar.classList.contains('collapsed') ? '70px' : '';
+        });
+
+        // Mobile sidebar toggle
+        document.getElementById('mobile-sidebar-toggle').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+            
+            // Overlay kontrolü
+            if (sidebar.classList.contains('active')) {
+                // Eğer overlay zaten varsa, tekrar oluşturmaya gerek yok
+                if (!document.querySelector('.sidebar-overlay')) {
+                    // Overlay ekle
+                    const overlay = document.createElement('div');
+                    overlay.className = 'sidebar-overlay active';
+                    document.body.appendChild(overlay);
+                    
+                    // Overlay'a tıklandığında menüyü kapat
+                    overlay.addEventListener('click', function() {
+                        sidebar.classList.remove('active');
+                        document.body.removeChild(overlay);
+                    });
+                }
+            } else {
+                // Overlay'ı kaldır
+                const overlay = document.querySelector('.sidebar-overlay');
+                if (overlay) {
+                    document.body.removeChild(overlay);
+                }
+            }
+        });
+
+        // Responsive sidebar
+        function updateSidebar() {
+            const isMobile = window.innerWidth < 992;
+            const sidebar = document.getElementById('sidebar');
+            
+            if (isMobile) {
+                document.getElementById('mobile-sidebar-toggle').style.display = 'block';
+                document.getElementById('content-area').style.marginLeft = '';
+                
+                // Mobilde sidebar collapsed değil active olmalı
+                sidebar.classList.remove('collapsed');
+                
+                // Hali hazırda overlay varsa ve sidebar active değilse kaldır
+                if (!sidebar.classList.contains('active')) {
+                    const overlay = document.querySelector('.sidebar-overlay');
+                    if (overlay) {
+                        document.body.removeChild(overlay);
+                    }
+                }
+            } else {
+                document.getElementById('mobile-sidebar-toggle').style.display = 'none';
+                
+                // Masaüstüne geçildiğinde active state'i kaldır
+                sidebar.classList.remove('active');
+                
+                // Sidebar collapsed ise margin ayarı yap
+                if (sidebar.classList.contains('collapsed')) {
+                    document.getElementById('content-area').style.marginLeft = '70px';
+                } else {
+                    document.getElementById('content-area').style.marginLeft = '';
+                }
+                
+                // Overlay varsa kaldır
+                const overlay = document.querySelector('.sidebar-overlay');
+                if (overlay) {
+                    document.body.removeChild(overlay);
+                }
+            }
+        }
+
+        // İlk yükleme ve ekran boyutu değiştiğinde çalıştır
+        window.addEventListener('load', updateSidebar);
+        window.addEventListener('resize', updateSidebar);
+    </script>
+</body>
+</html> 

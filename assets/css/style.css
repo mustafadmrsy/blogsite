@@ -1,0 +1,758 @@
+/* Ana Renkler */
+:root {
+    --primary-color: #4AA3E0;
+    --secondary-color: #2C3E50;
+    --text-color: #333;
+    --bg-color: #fff;
+    --hover-color: #3589c7;
+    --gray-light: #f8f9fa;
+    --sidebar-width: 280px;
+    --menu-text-color: #555;
+}
+
+/* Genel Stiller */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    display: flex;
+    flex: 1;
+    position: relative;
+}
+
+.content-area {
+    flex: 1;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+
+/* Header Stilleri */
+.main-header {
+    background-color: var(--bg-color);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 0.8rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-brand {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary-color) !important;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand i {
+    margin-right: 10px;
+    font-size: 2rem;
+}
+
+.search-form {
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+}
+
+.search-form .form-control {
+    padding-right: 50px;
+    border-radius: 50px;
+    border: 1px solid #ddd;
+}
+
+.search-form .btn {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-icons .nav-link {
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    position: relative;
+    color: var(--secondary-color);
+    transition: color 0.3s ease;
+}
+
+.header-icons .nav-link:hover {
+    color: var(--primary-color);
+}
+
+.badge-notification {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.25rem 0.5rem;
+    border-radius: 50%;
+    font-size: 0.7rem;
+}
+
+/* Sidebar Stilleri */
+.sidebar {
+    width: var(--sidebar-width);
+    background: var(--secondary-color);
+    color: white;
+    padding: 20px 0;
+    transition: all 0.3s ease;
+    position: sticky;
+    top: 75px; /* Header yüksekliği + padding */
+    z-index: 900;
+    height: calc(100vh - 75px); /* Viewport height - header height */
+    overflow-y: auto; /* Scroll bar when content exceeds height */
+}
+
+.sidebar.collapsed {
+    width: 70px;
+    overflow: visible;
+}
+
+.sidebar-header {
+    padding: 0 20px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.sidebar.collapsed .sidebar-header {
+    padding: 0 10px 20px;
+    justify-content: center;
+}
+
+.sidebar-toggle {
+    background: var(--primary-color);
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    z-index: 10;
+    border-radius: 50%;
+    position: absolute;
+    right: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.sidebar-toggle:hover {
+    background: var(--hover-color);
+    transform: scale(1.1);
+}
+
+.sidebar.collapsed .sidebar-toggle {
+    transform: rotate(180deg);
+    right: -18px;
+    background: var(--primary-color);
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.sidebar-menu li {
+    padding: 0;
+    position: relative;
+}
+
+.sidebar-menu a {
+    display: flex;
+    align-items: center;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    padding: 12px 20px;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.sidebar-menu a:hover,
+.sidebar-menu a.active {
+    background: rgba(255,255,255,0.1);
+    color: white;
+}
+
+.sidebar-menu i {
+    margin-right: 15px;
+    font-size: 1.2rem;
+    width: 20px;
+    text-align: center;
+}
+
+.sidebar-menu .menu-text {
+    transition: opacity 0.3s ease;
+}
+
+.sidebar.collapsed .menu-text {
+    opacity: 0;
+    width: 0;
+    display: none;
+}
+
+.sidebar-menu .dropdown-toggle::after {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.sidebar-submenu {
+    padding-left: 0;
+    list-style: none;
+    background-color: rgba(0,0,0,0.1);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.sidebar-submenu.show {
+    max-height: 1000px;
+}
+
+.sidebar-submenu a {
+    padding-left: 55px;
+    font-size: 0.9rem;
+}
+
+/* Kategori Mega Menu */
+.category-megamenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    z-index: 1000;
+    display: none;
+    padding: 20px;
+    border-top: 2px solid var(--primary-color);
+    min-width: 600px;
+    max-width: 900px;
+    border-radius: 0 0 5px 5px;
+}
+
+.nav-categories {
+    position: relative;
+    display: flex;
+    gap: 5px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.nav-categories .nav-item {
+    position: relative;
+}
+
+.nav-categories .nav-link {
+    padding: 10px 20px;
+    font-size: 15px;
+    color: var(--menu-text-color);
+    border-radius: 5px;
+    transition: all 0.2s;
+    cursor: pointer;
+    font-weight: 600;
+    white-space: nowrap;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.nav-categories .nav-link:hover,
+.nav-categories .nav-link:focus {
+    color: var(--primary-color);
+    background-color: rgba(74, 163, 224, 0.1);
+}
+
+.nav-categories .nav-item:hover .category-megamenu {
+    display: block;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.category-column h6 {
+    font-weight: 600;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 15px;
+    font-size: 15px;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.subcategory-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.subcategory-list li {
+    margin-bottom: 10px;
+}
+
+.subcategory-list a {
+    color: var(--menu-text-color);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    display: block;
+    padding: 5px 0;
+    position: relative;
+    padding-left: 0;
+}
+
+.subcategory-list a:hover {
+    color: var(--primary-color);
+    padding-left: 5px;
+    background-color: rgba(74, 163, 224, 0.05);
+    transition: all 0.2s ease;
+}
+
+/* Motor Tipleri ve diğer başlıkların stili */
+.category-megamenu .row {
+    width: 100%;
+    clear: both;
+}
+
+/* Dropdown header stili */
+.dropdown-header {
+    font-weight: bold;
+    color: var(--primary-color);
+    padding: 8px 0;
+    font-size: 15px;
+}
+
+/* Buton Stilleri */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--hover-color);
+    border-color: var(--hover-color);
+    transform: translateY(-2px);
+}
+
+/* Kategori Kartları */
+.category-card {
+    border: none;
+    background-color: var(--gray-light);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.category-card:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-5px);
+}
+
+.category-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.category-card:hover .category-icon {
+    color: white;
+}
+
+/* Ürün Kartları */
+.product-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    height: 100%;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.product-img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.product-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.product-price {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.discount-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #e74c3c;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+/* Footer Stilleri */
+.footer {
+    background-color: var(--secondary-color);
+    color: rgba(255,255,255,0.8);
+    padding: 3rem 0 0;
+    margin-top: 4rem;
+}
+
+.footer h5 {
+    color: white;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 0.8rem;
+}
+
+.footer-links a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: white;
+}
+
+.footer-bottom {
+    background: rgba(0,0,0,0.2);
+    padding: 1.5rem 0;
+    margin-top: 3rem;
+    font-size: 0.9rem;
+}
+
+/* Newsletter Form */
+.newsletter-form {
+    background-color: rgba(255,255,255,0.05);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.newsletter-form input {
+    background-color: rgba(255,255,255,0.1);
+    border: none;
+    color: white;
+}
+
+.newsletter-form input::placeholder {
+    color: rgba(255,255,255,0.5);
+}
+
+/* Hero Banner */
+.hero-banner {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.hero-banner img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.hero-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    padding: 30px;
+}
+
+.hero-content h2 {
+    font-size: 2.5rem; 
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    margin-bottom: 1.5rem;
+}
+
+.hero-content .btn {
+    font-weight: 600;
+    padding: 0.6rem 1.5rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Sepet Sayfası */
+.cart-item {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.cart-item-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.cart-total {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    overflow: hidden;
+    width: fit-content;
+}
+
+.quantity-control button {
+    background: #f8f9fa;
+    border: none;
+    width: 30px;
+    height: 30px;
+}
+
+.quantity-control input {
+    width: 40px;
+    border: none;
+    text-align: center;
+    background: white;
+}
+
+.quantity-control input:focus {
+    outline: none;
+}
+
+/* Kategorinin aktif olduğunu gösterme */
+.nav-categories .nav-item.active .nav-link,
+.nav-categories .nav-item:hover .nav-link {
+    color: var(--primary-color);
+    background-color: rgba(74, 163, 224, 0.1);
+    box-shadow: 0 2px 0 var(--primary-color);
+}
+
+/* Mobil ekranlar için düzenleme */
+@media (max-width: 768px) {
+    .search-form {
+        max-width: 100%;
+    }
+    
+    .category-card {
+        padding: 10px;
+    }
+    
+    .product-card {
+        margin-bottom: 15px;
+    }
+    
+    .hero-banner {
+        height: auto;
+    }
+    
+    .hero-banner img {
+        height: 300px;
+    }
+    
+    .hero-content h2 {
+        font-size: 1.8rem;
+    }
+    
+    .hero-content p {
+        font-size: 1rem !important;
+    }
+    
+    .hero-content .btn {
+        padding: 8px 15px;
+        font-size: 1rem;
+    }
+    
+    .cart-item-img {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .quantity-control {
+        width: 100%;
+    }
+    
+    .cart-item .row {
+        margin-bottom: 10px;
+    }
+    
+    .cart-item {
+        padding: 15px 10px;
+    }
+    
+    .category-megamenu {
+        position: static;
+        min-width: 100%;
+        max-width: 100%;
+        box-shadow: none;
+        border-radius: 0;
+        padding: 10px;
+    }
+    
+    .nav-categories {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .nav-categories .nav-item {
+        width: 100%;
+    }
+    
+    .nav-categories .nav-link {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .category-column {
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-banner img {
+        height: 200px;
+    }
+    
+    .hero-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .hero-content p {
+        font-size: 0.9rem !important;
+    }
+    
+    .header-icons .nav-link {
+        padding: 0.5rem 0.5rem;
+    }
+    
+    .product-card .card-body {
+        padding: 10px;
+    }
+    
+    .product-title {
+        font-size: 1rem;
+    }
+    
+    .card-text {
+        font-size: 0.8rem;
+    }
+    
+    .nav-categories .nav-link {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+}
+
+/* Responsive Düzenlemeler */
+@media (max-width: 992px) {
+    .sidebar {
+        position: fixed;
+        left: -280px; /* hide off-screen initially */
+        top: 0;
+        height: 100%;
+        z-index: 1050;
+        box-shadow: 3px 0 10px rgba(0,0,0,0.2);
+    }
+    
+    .sidebar.active {
+        left: 0; /* slide in when active */
+    }
+    
+    .content-area {
+        margin-left: 0 !important;
+    }
+    
+    .mobile-sidebar-toggle {
+        display: block !important;
+    }
+    
+    .category-megamenu {
+        position: static;
+        box-shadow: none;
+        display: none;
+        padding: 10px;
+        min-width: 100%;
+    }
+    
+    .nav-categories .nav-item:hover .category-megamenu {
+        display: none;
+    }
+    
+    .nav-categories .nav-item.show .category-megamenu {
+        display: block;
+    }
+}
+
+/* Sidebar overlay style for mobile */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1040;
+    display: none;
+}
+
+.sidebar-overlay.active {
+    display: block;
+} 
